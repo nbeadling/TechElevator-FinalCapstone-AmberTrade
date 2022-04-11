@@ -74,3 +74,17 @@ export default {
   }
 };
 </script>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+#login{
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient((rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/src/Assets/pexels-en.jpg));
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+</style>

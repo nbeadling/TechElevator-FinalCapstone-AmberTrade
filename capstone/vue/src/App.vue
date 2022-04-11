@@ -7,3 +7,18 @@
     <router-view />
   </div>
 </template>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+.home{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+
+}
+</style>
