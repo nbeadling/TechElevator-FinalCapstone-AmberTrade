@@ -15,10 +15,14 @@
 .home{
     height: 100%;
     width: 100%;
-    background-color: black;
+    background-color: white;
     background-position: center;
     background-size: cover;
     position: absolute;
+    justify-content: right;
 
+}
+#nav{
+  margin-top: 10px;
 }
 </style>
