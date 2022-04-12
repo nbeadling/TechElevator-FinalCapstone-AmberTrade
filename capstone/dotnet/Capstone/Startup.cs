@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Capstone.DAO;
 using Capstone.Security;
+using Capstone.Services;
 
 namespace Capstone
 {
@@ -63,9 +64,13 @@ namespace Capstone
             services.AddSingleton<ITokenGenerator>(tk => new JwtGenerator(Configuration["JwtSecret"]));
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
+
+            services.AddTransient<IClosePriceDao>(sp => new ClosePriceDao());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
+            
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
