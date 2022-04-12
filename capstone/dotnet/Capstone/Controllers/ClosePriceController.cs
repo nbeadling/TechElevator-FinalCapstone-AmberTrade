@@ -25,11 +25,11 @@ namespace Capstone.Controllers
         }
 
 
-        [HttpGet("/getprice")]
-        public ActionResult<ClosePrice> GetPrice()
+        [HttpGet("/getprice/{stockTicker}")]
+        public ActionResult<ClosePrice> GetPrice(string stockTicker)
         {
 
-            ClosePrice account = closePriceDao.GetPrice();
+            ClosePrice account = closePriceDao.GetPrice(stockTicker);
 
             return account;
         }

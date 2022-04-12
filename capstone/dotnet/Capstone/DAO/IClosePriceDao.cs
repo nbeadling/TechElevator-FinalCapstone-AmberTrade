@@ -9,7 +9,7 @@ namespace Capstone.Services
     public interface IClosePriceDao
     {
 
-        ClosePrice GetPrice();
+        ClosePrice GetPrice(string stockTicker);
 
     }
 }
