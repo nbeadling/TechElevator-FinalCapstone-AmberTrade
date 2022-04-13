@@ -11,7 +11,7 @@ namespace Capstone.Controllers
 {
     [Route("game")]
     [ApiController]
-    [Authorize]
+  
     public class GameController : Controller
     {
         private IGameDAO gameDAO;
@@ -21,25 +21,36 @@ namespace Capstone.Controllers
             this.gameDAO = gameDAO;
         }
 
-        [HttpPost()]
-
-        public ActionResult<Game> CreateGame(Game game)
+        [HttpPost("create")]
+        public ActionResult<int> CreateGame(Game game)
         {
-            Game added = gameDAO.CreateGame(game);
-            return Created($"/game/{added.GameId}", added); 
+
+            Game added = gameDAO.CreateGameId(game);
+            //return Created($"/game/{added.GameId}", added);
+            return added.GameId;
+
         }
 
-        [HttpGet("{id}")]
-        public Game GetGameByGameId(int id)
-        {
-            return gameDAO.GetGamesById(id); 
-        }
-
-        //[HttpGet("/users/game")]
-
-        //public Game GetGameByUserId(int id)
+        //[HttpGet("{id}")]
+        //public Game GetGameByGameId(int id)
         //{
-        //    return gameDAO.GetGamesByUser(id); 
+        //    return gameDAO.GetGamesById(id); 
+        //}
+
+        [HttpGet("{userId}")]
+
+        public List<Game> ViewGameByUserId(int userId)
+        {
+            List<Game> listGames = gameDAO.ViewGamesByUserId(userId);
+            return listGames;
+        }
+
+        //[HttpPost("/invte/{userId}")]
+
+        //public ActionResult<Game> InvitePlayer(int userID, String gameName)
+        //{
+        //    Game added = gameDAO.CreateGame(game);
+        //    return Created($"/game/{added.GameId}", added);
         //}
     }
 }
