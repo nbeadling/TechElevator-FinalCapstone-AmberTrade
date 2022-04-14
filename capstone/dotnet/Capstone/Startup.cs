@@ -11,6 +11,7 @@ using Capstone.DAO;
 using Capstone.Security;
 using Capstone.Services;
 
+
 namespace Capstone
 {
     public class Startup
@@ -65,7 +66,9 @@ namespace Capstone
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
 
-            services.AddTransient<IClosePriceDao>(sp => new ClosePriceDao());
+            services.AddTransient<IClosePriceDao>(sp => new ClosePriceRestDao());
+            services.AddTransient<IGameDAO>(sp => new GameSqlDao(connectionString));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

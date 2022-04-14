@@ -7,7 +7,7 @@ using Capstone.Models;
 
 namespace Capstone.Services
 {
-    public class ClosePriceDao : IClosePriceDao
+    public class ClosePriceRestDao : IClosePriceDao
     {
        
         private readonly RestClient client = new RestClient();

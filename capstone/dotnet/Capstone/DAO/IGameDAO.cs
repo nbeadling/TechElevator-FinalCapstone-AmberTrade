@@ -8,10 +8,12 @@ namespace Capstone.DAO
 {
     public interface IGameDAO
     {
-        Game CreateGame(Game game);
+        Game CreateGameId(Game game);
 
-        List<Game> GetGamesByUser(int id);
+        Game CreateGameById(int newGameId, int userId);
 
-        Game GetGamesById(int id);
+        List<Game> ViewGamesByUserId(int id);
+
+        //Game GetGamesById(int id);
     }
 }
