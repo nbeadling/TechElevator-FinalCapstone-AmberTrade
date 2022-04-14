@@ -23,6 +23,9 @@
 
 }
 #nav{
-  margin-top: 10px;
+  text-align: right;
+  padding: 15px 30px;
+
+ 
 }
 </style>
