@@ -22,18 +22,16 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("create")]
-        public ActionResult<int> CreateGame(Game game)
+        public int CreateGame(Game gameInfo)
         {
-
-            Game added = gameDAO.CreateGameId(game);
+            int userId = gameInfo.UserId;
+            string gameName = gameInfo.GameName;
+            int createdGameId = gameDAO.CreateGameId(userId, gameName);
             //return Created($"/game/{added.GameId}", added);
-            return added.GameId;
-
+            return createdGameId;
         }
 
-
         [HttpGet("{userId}")]
-
         public List<Holdings> ViewGameByUserId(int userId)
         {
             List<Holdings> listGames = gameDAO.ViewGamesByUserId(userId);
@@ -41,10 +39,10 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("invte/{userId}")]
-        public ActionResult<Game> InvitePlayerGame(int userId, Game game)
+        public ActionResult<int> InvitePlayerGame(int userId, Game gameId)
         {
-            Game added = gameDAO.InvitePlayer(userId, game);
-            return Created($"/game/{added.GameId}", added);
+            int added = gameDAO.InvitePlayer(userId, gameId);
+            return Created($"/game/{added}", added);
         }
     }
 }

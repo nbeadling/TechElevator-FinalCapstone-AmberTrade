@@ -14,7 +14,6 @@ namespace Capstone.Services
 
         public ClosePrice GetPrice(string stockTicker)
         {
-
             string first = "https://api.polygon.io/v1/open-close/";
             string second = "/2020-10-14?adjusted=true&apiKey=katsjNypap5pM3XpvIDU8ypcVp9EiMrx";
 

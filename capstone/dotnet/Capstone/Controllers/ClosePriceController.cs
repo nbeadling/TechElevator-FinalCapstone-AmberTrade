@@ -14,24 +14,23 @@ namespace Capstone.Controllers
     [ApiController]
     public class ClosePriceController : ControllerBase
     {
-
         private readonly IClosePriceDao closePriceDao;
-
-
         public ClosePriceController(IClosePriceDao closePriceDao)
         {
             this.closePriceDao = closePriceDao;
-
         }
-
 
         [HttpGet("/getprice/{stockTicker}")]
-        public ActionResult<ClosePrice> GetPrice(string stockTicker)
+        public ClosePrice GetPrice(string stockTicker)
         {
-
-            ClosePrice account = closePriceDao.GetPrice(stockTicker);
-
-            return account;
+            ClosePrice price = closePriceDao.GetPrice(stockTicker);
+            return price;
         }
     }
+
+
+
+
+
+
 }
