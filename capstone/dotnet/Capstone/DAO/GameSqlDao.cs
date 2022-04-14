@@ -41,11 +41,6 @@ namespace Capstone.DAO
             return gameByUser;
         }
 
-        //Game name = > game_id
-        //game_id as a var passed into the update for holdings along with user_id to create game
-
-
-
 
         public Game CreateGameById(int newGameId, int userId)
         {
@@ -57,7 +52,6 @@ namespace Capstone.DAO
                 SqlCommand cmd = new SqlCommand("insert holdings (stock, balance,user_id, game_id) " +
                                                 "OUTPUT INSERTED.game_id " +
                                                "values ('', 100000, @user_id, @game_id); " +
-                                               //"SELECT game_name FROM Game WHERE game_id = @game_id " +
                                                "SELECT username FROM users WHERE user_id = @user_id ", conn);
                 cmd.Parameters.AddWithValue("@game_id", newGameId);
                 cmd.Parameters.AddWithValue("@user_id", userId);
@@ -113,24 +107,25 @@ namespace Capstone.DAO
             Game g = new Game()
             {
                 GameId = Convert.ToInt32(reader["game_id"]),
-                GameName = Convert.ToString(reader["game_name"]),
+                //GameName = Convert.ToString(reader["game_name"]),
                 //UserName = Convert.ToString(reader["username"])
 
             };
             return g;
         }
 
-        private Game ViewGamesByUserIdReader(SqlDataReader reader)
+        private Holdings ViewGamesByUserIdReader(SqlDataReader reader)
         {
-            Game g = new Game()
-            {
-                GameId = Convert.ToInt32(reader["game_id"]),
-                GameName = Convert.ToString(reader["game_name"]),
-                Balance = Convert.ToDecimal(reader["balance"]),
+            Holdings g = new Holdings();
 
-                //UserName = Convert.ToString(reader["username"])
+            g.GameId = Convert.ToInt32(reader["game_id"]);
+            g.GameName = Convert.ToString(reader["game_name"]);
+            g.Balance = Convert.ToDecimal(reader["balance"]);
+      
 
-            };
+            //UserName = Convert.ToString(reader["username"])
+
+
             return g;
         }
 
@@ -138,9 +133,9 @@ namespace Capstone.DAO
 
 
 
-        public List<Game> ViewGamesByUserId(int userId)
+        public List<Holdings> ViewGamesByUserId(int userId)
         {
-            List<Game> listGames = null;
+            List<Holdings> listGames = new List<Holdings>();
 
             using (SqlConnection conn = new SqlConnection(connectionSting))
             {
@@ -149,6 +144,7 @@ namespace Capstone.DAO
                 SqlCommand cmd = new SqlCommand("SELECT h.balance, g.game_id, g.game_name FROM holdings h " +
                                                 "JOIN Game G on G.game_id = h.game_id " +
                                                 "WHERE h.user_id = @user_id;", conn);
+
                 cmd.Parameters.AddWithValue("@user_id", userId);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -156,13 +152,43 @@ namespace Capstone.DAO
 
                 while (reader.Read())
                 {
-                    Game games = ViewGamesByUserIdReader(reader);
+                    Holdings games = ViewGamesByUserIdReader(reader);
                     listGames.Add(games);
                 }
 
 
             }
             return listGames;
+        }
+
+
+
+
+        public Game InvitePlayer(int userId, Game game)
+        {
+
+            using (SqlConnection conn = new SqlConnection(connectionSting))
+            {
+                Game transferGame = null;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("insert holdings (stock, balance,user_id, game_id) " +
+                                                "OUTPUT INSERTED.game_id " +
+                                                "values ('', 100000, @user_id, @game_id); " +
+                                                "SELECT game_id FROM Game WHERE user_id = @user_id ", conn);
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@game_id", game.GameId);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    transferGame = CreateGameIdFromReader(reader);
+                }
+
+   
+                return transferGame;
+            }
+
         }
 
 

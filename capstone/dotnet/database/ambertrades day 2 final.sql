@@ -196,7 +196,7 @@ INSERT INTO Game (game_name) VALUES ('testing')
 INSERT INTO holdings(user, game_id) VALUES ('testing')
 
 
-insert holdings (stock, balance,user_id, game_id)values ('', 100000, 3, 100);
+insert holdings (stock, balance,user_id, game_id)values ('', 100000, 3, 104);
 
 
 insert game(game_name)OUTPUT INSERTED.game_idvalues ( 'Demo3');
@@ -207,5 +207,24 @@ insert holdings (stock, balance,user_id, game_id)values ('', 100000, 3, 101);
 SELECT game_id FROM Game WHERE game_name = 'Demo'
 
 
+insert holdings (stock, balance,user_id, game_id) 
+OUTPUT INSERTED.game_id 
+values ('', 100000, 3, 110);
+SELECT game_name FROM Game WHERE game_id = '117'
+SELECT username FROM users WHERE user_id = '1'
+
+
+
 
 SELECT g.game_name FROM game g JOIN holdings h ON g.game_id = h.game_id WHERE user.id = user.id;
+
+
+
+SELECT h.stock, h.balance, g.game_id, g.game_name FROM holdings h
+JOIN Game G on G.game_id = h.game_id
+WHERE h.user_id = 3
+
+
+SELECT * FROM users 
+SELECT * FROM Game 
+SELECT * FROM holdings 

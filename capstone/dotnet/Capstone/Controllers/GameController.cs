@@ -31,26 +31,20 @@ namespace Capstone.Controllers
 
         }
 
-        //[HttpGet("{id}")]
-        //public Game GetGameByGameId(int id)
-        //{
-        //    return gameDAO.GetGamesById(id); 
-        //}
 
         [HttpGet("{userId}")]
 
-        public List<Game> ViewGameByUserId(int userId)
+        public List<Holdings> ViewGameByUserId(int userId)
         {
-            List<Game> listGames = gameDAO.ViewGamesByUserId(userId);
+            List<Holdings> listGames = gameDAO.ViewGamesByUserId(userId);
             return listGames;
         }
 
-        //[HttpPost("/invte/{userId}")]
-
-        //public ActionResult<Game> InvitePlayer(int userID, String gameName)
-        //{
-        //    Game added = gameDAO.CreateGame(game);
-        //    return Created($"/game/{added.GameId}", added);
-        //}
+        [HttpPost("invte/{userId}")]
+        public ActionResult<Game> InvitePlayerGame(int userId, Game game)
+        {
+            Game added = gameDAO.InvitePlayer(userId, game);
+            return Created($"/game/{added.GameId}", added);
+        }
     }
 }

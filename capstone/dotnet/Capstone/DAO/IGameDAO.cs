@@ -12,7 +12,9 @@ namespace Capstone.DAO
 
         Game CreateGameById(int newGameId, int userId);
 
-        List<Game> ViewGamesByUserId(int id);
+        List<Holdings> ViewGamesByUserId(int id);
+
+        Game InvitePlayer(int userId, Game game);
 
         //Game GetGamesById(int id);
     }

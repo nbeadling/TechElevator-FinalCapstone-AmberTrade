@@ -10,13 +10,22 @@ namespace Capstone.Models
     {
         public decimal Balance { get; set; }
 
+        public string Stock { get; set; } = "";
 
-        public Holdings(decimal balance) : base(gamename)
+
+        public Holdings(decimal balance, string stock)
         {
 
             this.Balance = balance;
+            this.Stock = stock;
+        }
+
+        public Holdings()
+        {
+
 
         }
+
     }
 
 }
