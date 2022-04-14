@@ -67,7 +67,7 @@ namespace Capstone
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
 
             services.AddTransient<IClosePriceDao>(sp => new ClosePriceRestDao());
-            services.AddTransient<IGameDAO>(sp => new GameSqlDao(connectionString));
+            services.AddTransient<IGameDao>(sp => new GameSqlDao(connectionString));
 
         }
 

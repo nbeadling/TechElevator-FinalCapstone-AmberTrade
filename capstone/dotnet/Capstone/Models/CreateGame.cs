@@ -5,25 +5,27 @@ using System.Threading.Tasks;
 
 namespace Capstone.Models
 {
-    public class Game
+    public class CreateGame
     {
         public int GameId { get; set; }
-
         public string GameName { get; set; }
-
-        public string UserName { get; set; } = "";
-
         public int UserId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public Game(int gameId, string gameName, int userId)
+
+
+        public CreateGame(int gameId, string gameName, int userId, DateTime startDate, DateTime endDate)
         {
             this.GameId = gameId;
             this.GameName = gameName;
             this.UserId = userId;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
 
         }
 
-        public Game()
+        public CreateGame()
         {
 
         }

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Capstone.DAO
 {
-    public class GameSqlDao : IGameDAO
+    public class GameSqlDao : IGameDao
     {
 
         private readonly string connectionSting;
@@ -17,17 +17,19 @@ namespace Capstone.DAO
             connectionSting = dbConnectionString;
         }
 
-        public int CreateGameId(int userId, string gameName)
+        public int CreateGameId(string gameName, int userId, DateTime startDate, DateTime endDate)
         {
             int newGameId = 0;
             using (SqlConnection conn = new SqlConnection(connectionSting))
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("INSERT Into Game (game_name) " +
+                SqlCommand cmd = new SqlCommand("INSERT INTO GAME (game_name, startdate, enddate) " +
                                                 "OUTPUT INSERTED.game_id " +
-                                                "VALUES(@game_name);", conn);
-                cmd.Parameters.AddWithValue("@game_name", gameName);
+                                                "VALUES (@game_Name, @start_Date, @end_Date);", conn);
+                cmd.Parameters.AddWithValue("@game_Name", gameName);
+                cmd.Parameters.AddWithValue("@start_Date", startDate);
+                cmd.Parameters.AddWithValue("@end_Date", endDate);
 
                 newGameId = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -42,10 +44,10 @@ namespace Capstone.DAO
             {
                 int createdGameId = 0;
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT holdings (stock, balance,user_id, game_id) " +
+                SqlCommand cmd = new SqlCommand("INSERT INTO balance (balance, game_id, user_id) " +
                                                 "OUTPUT INSERTED.game_id " +
-                                                "values ('', 100000, @user_id, @game_id); " +
-                                                "SELECT username FROM users WHERE user_id = @user_id ", conn);
+                                                "values (100000, @game_id, @user_id); ", conn);
+
                 cmd.Parameters.AddWithValue("@game_id", newGameId);
                 cmd.Parameters.AddWithValue("@user_id", userId);
 
@@ -63,9 +65,10 @@ namespace Capstone.DAO
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT h.balance, g.game_id, g.game_name FROM holdings h " +
-                                                "JOIN Game G on G.game_id = h.game_id " +
-                                                "WHERE h.user_id = @user_id;", conn);
+                SqlCommand cmd = new SqlCommand("SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance " +
+                                                "FROM GAME G JOIN balance B ON G.game_id = B.game_id " +
+                                                "JOIN users U ON B.user_id = U.user_id " +
+                                                "WHERE B.user_id = @user_id;", conn);
                 cmd.Parameters.AddWithValue("@user_id", userId);
                 SqlDataReader reader = cmd.ExecuteReader();
 
@@ -82,25 +85,26 @@ namespace Capstone.DAO
         {
             Holdings g = new Holdings();
 
-            g.GameId = Convert.ToInt32(reader["game_id"]);
-            g.GameName = Convert.ToString(reader["game_name"]);
+            g.UserName = Convert.ToString(reader["username"]);
+            g.GameName = Convert.ToString(reader["game_Name"]);
             g.Balance = Convert.ToDecimal(reader["balance"]);
-            //UserName = Convert.ToString(reader["username"])
+            g.StartTime = Convert.ToDateTime(reader["startdate"]);
+            g.EndDate = Convert.ToDateTime(reader["enddate"]);
             return g;
         }
 
-        public int InvitePlayer(int userId, Game gameId)
+        public int InvitePlayer(int userId, CreateGame gameId)
         {
 
             using (SqlConnection conn = new SqlConnection(connectionSting))
             {
                 int transferGame = 0;
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT holdings (stock, balance,user_id, game_id) " +
+                SqlCommand cmd = new SqlCommand("INSERT INTO Balance (balance, game_id, user_id) " +
                                                 "OUTPUT INSERTED.game_id " +
-                                                "values ('', 100000, @user_id, @game_id); ", conn);
+                                                "VALUES (100000, (SELECT game_id FROM game WHERE game_name=@game_name), @user_id); ", conn);
                 cmd.Parameters.AddWithValue("@user_id", userId);
-                cmd.Parameters.AddWithValue("@game_id", gameId.GameId);
+                cmd.Parameters.AddWithValue("@game_name", gameId.GameName);
 
                 transferGame = (int)cmd.ExecuteScalar();
    

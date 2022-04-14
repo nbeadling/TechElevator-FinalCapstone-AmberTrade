@@ -14,20 +14,21 @@ namespace Capstone.Controllers
   
     public class GameController : Controller
     {
-        private IGameDAO gameDAO;
+        private IGameDao gameDAO;
 
-        public GameController(IGameDAO gameDAO)
+        public GameController(IGameDao gameDAO)
         {
             this.gameDAO = gameDAO;
         }
 
         [HttpPost("create")]
-        public int CreateGame(Game gameInfo)
+        public int CreateGame(CreateGame gameInfo)
         {
             int userId = gameInfo.UserId;
             string gameName = gameInfo.GameName;
-            int createdGameId = gameDAO.CreateGameId(userId, gameName);
-            //return Created($"/game/{added.GameId}", added);
+            DateTime startDate = gameInfo.StartDate;
+            DateTime endDate = gameInfo.EndDate;
+            int createdGameId = gameDAO.CreateGameId(gameName, userId, startDate, endDate);
             return createdGameId;
         }
 
@@ -39,7 +40,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("invte/{userId}")]
-        public ActionResult<int> InvitePlayerGame(int userId, Game gameId)
+        public ActionResult<int> InvitePlayerGame(int userId, CreateGame gameId)
         {
             int added = gameDAO.InvitePlayer(userId, gameId);
             return Created($"/game/{added}", added);

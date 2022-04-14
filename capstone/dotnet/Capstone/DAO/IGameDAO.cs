@@ -6,15 +6,15 @@ using Capstone.Models;
 
 namespace Capstone.DAO
 {
-    public interface IGameDAO
+    public interface IGameDao
     {
-        int CreateGameId(int userId, string gameName);
+        int CreateGameId(string gameName, int userId, DateTime startDate, DateTime endDate);
 
         int CreateGameById(int newGameId, int userId);
 
         List<Holdings> ViewGamesByUserId(int id);
 
-        int InvitePlayer(int userId, Game gameId);
+        int InvitePlayer(int userId, CreateGame gameId);
 
     }
 }

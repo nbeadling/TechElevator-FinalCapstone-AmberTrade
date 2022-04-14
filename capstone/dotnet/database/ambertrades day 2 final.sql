@@ -1,4 +1,5 @@
 USE [ambertrade]
+DROP DATABASE ambertrade
 GO
 ALTER TABLE [dbo].[holdings] DROP CONSTRAINT [FK_holdings_users]
 GO
