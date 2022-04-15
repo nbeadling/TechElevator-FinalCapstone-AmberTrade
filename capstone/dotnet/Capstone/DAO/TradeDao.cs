@@ -147,10 +147,44 @@ namespace Capstone.DAO
 
                 using (SqlConnection balanceConn = new SqlConnection(tradeDao))
                 {
-                    //balanceConn.Open();
-                    //SqlCommand  = SqlCommand("SELECT balance FROM Balance", balanceConn);
+                    decimal balance = 0.00M; 
+
+                    balanceConn.Open();
+                    SqlCommand reader = new SqlCommand("SELECT balance FROM Balance " +
+                                            "Where user_id = @user_id AND game_id = @game_id;", balanceConn);
+                    reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                    reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+                    //md.ExecuteReader();
+
+                    SqlDataReader sqlBalance = reader.ExecuteReader();
 
 
+                    while (sqlBalance.Read())
+                    {
+                        SellAStock see = new SellAStock(); 
+                        see = CreateSellAStockFromReader(sqlBalance);
+                        balance = see.Balance; 
+                    }
+                    
+
+
+
+
+                    balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
+
+                    
+                    using (SqlConnection newBalance = new SqlConnection(tradeDao))
+                    {
+                        newBalance.Open();
+                        SqlCommand update = new SqlCommand("Update balance Set balance = @balance " +
+                                                           "Where user_id = @user_id AND game_id = @game_id", newBalance);
+                        update.Parameters.AddWithValue("@balance", balance);
+                        update.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                        update.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+                        update.ExecuteNonQuery(); 
+                    }
 
 
                 }
@@ -162,6 +196,32 @@ namespace Capstone.DAO
 
         }
 
+
+        public SellAStock CreateSellAStockFromReader(SqlDataReader reader)
+        {
+            SellAStock list = new SellAStock();
+
+            list.Balance = Convert.ToDecimal(reader["balance"]);
+
+            return list; 
+        }
+        
+
+
+//        public SeeStocks TradesReader(SqlDataReader reader)
+//{
+//    SeeStocks list = new SeeStocks();
+
+//    list.Stock = Convert.ToString(reader["stock"]);
+//    list.UserName = Convert.ToString(reader["username"]);
+//    list.Quanitity = Convert.ToInt16(reader["quantity"]);
+//    list.PurchasePrice = Convert.ToDecimal(reader["purchase_price"]);
+//    //list.Sale_Price = Convert.ToDecimal(reader["sale_price"]);
+//    list.Game_Name = Convert.ToString(reader["game_name"]);
+//    list.Balance = Convert.ToDecimal(reader["balance"]);
+
+//    return list;
+//}
 
 
     }
