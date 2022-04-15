@@ -7,8 +7,10 @@
   <router-link to='games'>View My Games</router-link>
   <a href="#">See Stocks</a>
   <router-link to='newgame'>Create</router-link>
+  <router-link to='joingame'>Join</router-link>
   <a href="#">See Leaderboard</a>
   <a href="#">Trade Stocks</a>
+  
 </div>
   </div>
 

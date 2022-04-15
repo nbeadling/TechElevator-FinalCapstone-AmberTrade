@@ -8,6 +8,7 @@ import store from '../store/index'
 import Profile from '../views/Profile.vue'
 import Games from '../views/Games.vue'
 import NewGame from '../views/NewGame.vue'
+import JoinGame from '../views/JoinGame.vue'
 
 
 Vue.use(Router)
@@ -56,6 +57,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    { 
+    path: '/joingame',
+    name: 'join-game',
+    component: JoinGame,
+    meta: {
+      requiresAuth: true
+    }
     },
     {
       path: "/login",

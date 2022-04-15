@@ -1,12 +1,12 @@
 <template>
   <div>
  
-        <h1>WELCOME BACK {{user.firstName}}</h1>
+        <h1>WELCOME BACK {{profile.firstName}}</h1>
       <h2> DETAILS FOR THE PROFILE PAGE</h2>
           <ul>
-              <li>{{user.userId}}</li>
-              <li>{{user.username}}</li>
-              <li>{{user.firstName}}, {{user.lastName}}</li>
+              <li>{{profile.userId}}</li>
+              <li>{{profile.username}}</li>
+              <li>{{profile.firstName}}, {{profile.lastName}}</li>
               <li>preview of and link to games</li>
               <li> preview of and link to holdings</li>
             </ul>
@@ -24,15 +24,14 @@ export default {
   
   data(){
     return {
-      user: {
-        userId: '1234',
-        firstName: 'connected',
-        lastName: 'toAPI',
-        username:'not',
-      },
       isLoading: true
     };
   },
+  computed: {
+    profile(){
+      return this.$store.state.profile;
+    }
+  }
   
   
 };

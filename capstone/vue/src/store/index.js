@@ -19,8 +19,37 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    users: [],
+    games: [],
+    holdings: [], //this is an array of stocks the user has in a game
+    game:{
+      gameId: '', 
+      gameName: 'gamefor my friends',
+      userId: '1234',
+      startDate: 'today',
+      endDate:'2/30/2022',
+    },
+    profile: {
+      userId: 'Fake1234',
+      firstName: 'NotConnectedToAPI',
+      lastName: 'fromVuex',
+      username:'theStore',
+    },
+    stockTransaction: {
+      stockTicker: '',
+      userId: '',
+      gameId: '',
+      quantity: '', 
+      purchasePrice: '', 
+    },
+    stockPrice:{
+      stockTicker: '', 
+      stockPrice: '',
+    }
+
   },
+
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;

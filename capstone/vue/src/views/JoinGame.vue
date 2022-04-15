@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    
+  <div class="content">
+   <join-game></join-game>
+
 <div class="sidenav">
-  <user-detail></user-detail>
+  <router-link to='profile'>Profile</router-link>
+  <router-link to='games'>View My Games</router-link>
+  <a href="#">See Stocks</a>
+  <router-link to='newgame'>Create</router-link>
+  <router-link to='joingame'>Join</router-link>
+  <a href="#">See Leaderboard</a>
+  <a href="#">Trade Stocks</a>
 </div>
   </div>
 
 
 </template>
 <script>
-import UserDetail from '../components/UserDetail.vue';
+import JoinGame from '../components/JoinGame.vue';
+
 export default {
-  components: { UserDetail },
-  name: "home"
+  components: { JoinGame },
+
+
+  name: "join-game"
 };
 </script>
 
@@ -20,10 +30,8 @@ export default {
 
 
 <style>
-.home{
-  position: fixed;
+.content{
   background:linear-gradient(to right, #96d9d9, #6969b3 );
-  top: 28.5px;
   margin-left: 200px;
   padding-left: 20px;
 
