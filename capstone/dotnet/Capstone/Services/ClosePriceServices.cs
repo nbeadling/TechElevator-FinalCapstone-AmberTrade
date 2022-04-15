@@ -7,7 +7,7 @@ using Capstone.Models;
 
 namespace Capstone.Services
 {
-    public class ClosePriceRestDao : IClosePriceDao
+    public class ClosePriceServices : IClosePriceDao
     {
        
         private readonly RestClient client = new RestClient();
@@ -22,5 +22,19 @@ namespace Capstone.Services
 
             return response.Data;
         }
+
+
+        //DIFFRENT API STRING, THIS ONE ALWAYS GIVE THE LAST DAY CLOSE PRICE ETC....
+
+        //public ClosePrice GetPrice(string stockTicker)
+        //{
+        //    string first = "https://api.polygon.io/v2/aggs/ticker/";
+        //    string second = "/prev?adjusted=true&apiKey=katsjNypap5pM3XpvIDU8ypcVp9EiMrx";
+
+        //    RestRequest request = new RestRequest($"{first}{stockTicker}{second}");
+        //    IRestResponse<ClosePrice> response = client.Get<ClosePrice>(request);
+
+        //    return response.Data;
+        //}
     }
 }

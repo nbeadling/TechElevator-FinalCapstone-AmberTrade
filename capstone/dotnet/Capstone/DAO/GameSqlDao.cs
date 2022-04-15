@@ -57,9 +57,9 @@ namespace Capstone.DAO
            
         }
 
-        public List<Holdings> ViewGamesByUserId(int userId)
+        public List<ViewGames> ViewGamesByUserId(int userId)
         {
-            List<Holdings> listGames = new List<Holdings>();
+            List<ViewGames> listGames = new List<ViewGames>();
 
             using (SqlConnection conn = new SqlConnection(connectionSting))
             {
@@ -74,16 +74,16 @@ namespace Capstone.DAO
 
                 while (reader.Read())
                 {
-                    Holdings games = ViewGamesByUserIdReader(reader);
+                    ViewGames games = ViewGamesByUserIdReader(reader);
                     listGames.Add(games);
                 }
             }
             return listGames;
         }
 
-        private Holdings ViewGamesByUserIdReader(SqlDataReader reader)
+        private ViewGames ViewGamesByUserIdReader(SqlDataReader reader)
         {
-            Holdings g = new Holdings();
+            ViewGames g = new ViewGames();
 
             g.UserName = Convert.ToString(reader["username"]);
             g.GameName = Convert.ToString(reader["game_Name"]);

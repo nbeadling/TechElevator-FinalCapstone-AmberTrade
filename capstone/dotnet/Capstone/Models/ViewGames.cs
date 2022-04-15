@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Capstone.Models;
 
 namespace Capstone.Models
 {
-    public class Holdings
+    public class ViewGames
     {
         public string UserName { get; set; }
         public string GameName { get; set; }
@@ -15,7 +14,7 @@ namespace Capstone.Models
         public DateTime EndDate { get; set; }
 
 
-        public Holdings(string userName, string gameName, decimal balance, DateTime startTime, DateTime endDate)
+        public ViewGames(string userName, string gameName, decimal balance, DateTime startTime, DateTime endDate)
         {
             this.UserName = userName;
             this.GameName = gameName;
@@ -24,7 +23,7 @@ namespace Capstone.Models
             this.EndDate = endDate;
         }
 
-        public Holdings()
+        public ViewGames()
         {
 
 
