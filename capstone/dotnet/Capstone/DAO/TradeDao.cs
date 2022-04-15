@@ -127,73 +127,193 @@ namespace Capstone.DAO
             return list;
         }
 
-        public string SellAStock(SellAStock sellAStockDao)
+        public int GetQuantity(SellAStock sellAStock)
         {
-            string result = "";
+            int quantity = 0; 
 
             using (SqlConnection conn = new SqlConnection(tradeDao))
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("UPDATE holdings SET sale_price = @sale_price " +
+                SqlCommand cmd = new SqlCommand("SELECT quantity FROM holdings " +
                                                 "WHERE stock = @stock AND user_id = @user_id AND game_id = @game_id AND purchase_price = @purchase_price;", conn);
-                cmd.Parameters.AddWithValue("@sale_price", sellAStockDao.Sale_Price);
-                cmd.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
-                cmd.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
-                cmd.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
-                cmd.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+                cmd.Parameters.AddWithValue("@stock", sellAStock.Stock);
+                cmd.Parameters.AddWithValue("@user_id", sellAStock.User_Id);
+                cmd.Parameters.AddWithValue("@game_id", sellAStock.Game_Id);
+                cmd.Parameters.AddWithValue("@purchase_price", sellAStock.Purchase_Price);
 
-                cmd.ExecuteNonQuery();
+                SqlDataReader read = cmd.ExecuteReader();
 
-                using (SqlConnection balanceConn = new SqlConnection(tradeDao))
+                
+
+                while (read.Read())
                 {
-                    decimal balance = 0.00M; 
-
-                    balanceConn.Open();
-                    SqlCommand reader = new SqlCommand("SELECT balance FROM Balance " +
-                                            "Where user_id = @user_id AND game_id = @game_id;", balanceConn);
-                    reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
-                    reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
-
-                    //md.ExecuteReader();
-
-                    SqlDataReader sqlBalance = reader.ExecuteReader();
-
-
-                    while (sqlBalance.Read())
-                    {
-                        SellAStock see = new SellAStock(); 
-                        see = CreateSellAStockFromReader(sqlBalance);
-                        balance = see.Balance; 
-                    }
-                    
-
-
-
-
-                    balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
-
-                    
-                    using (SqlConnection newBalance = new SqlConnection(tradeDao))
-                    {
-                        newBalance.Open();
-                        SqlCommand update = new SqlCommand("Update balance Set balance = @balance " +
-                                                           "Where user_id = @user_id AND game_id = @game_id", newBalance);
-                        update.Parameters.AddWithValue("@balance", balance);
-                        update.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
-                        update.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
-
-                        update.ExecuteNonQuery(); 
-                    }
-
-
+                    SellAStock see = new SellAStock();
+                    see = CreateQuantityFromReader(read);
+                    quantity = see.Quantity;
                 }
 
+                return quantity; 
 
-                result = "SOLD";
             }
-            return result;
+        }
 
+        public string SellAStock(SellAStock sellAStockDao)
+        {
+            string result = "";
+
+            int sqlQuantity = GetQuantity(sellAStockDao);
+
+            if (sqlQuantity > sellAStockDao.Quantity)
+            {
+                using (SqlConnection conn = new SqlConnection(tradeDao))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("Update holdings set quantity = @sqlQuantity - @quantity " +
+                                                    "WHERE stock = @stock AND user_id = @user_id AND game_id = @game_id AND purchase_price = @purchase_price", conn);
+                    cmd.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
+                    cmd.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                    cmd.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+                    cmd.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+                    cmd.Parameters.AddWithValue("@quantity", sellAStockDao.Quantity);
+                    cmd.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
+
+                    cmd.ExecuteNonQuery();
+                   
+                    using (SqlConnection insertSales = new SqlConnection(tradeDao))
+                    {
+                        insertSales.Open();
+
+                        SqlCommand insert = new SqlCommand("insert holdings (stock, user_id, game_id, quantity, purchase_price, sale_price) " +
+                                                           "values (@stock, @user_id, @game_id, @quantity, @purchase_price, @sale_price)", insertSales);
+                        insert.Parameters.AddWithValue("@sale_price", sellAStockDao.Sale_Price);
+                        insert.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
+                        insert.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                        insert.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+                        insert.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+                        insert.Parameters.AddWithValue("@quantity", sellAStockDao.Quantity);
+                        //insert.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
+
+                        insert.ExecuteNonQuery();
+                        //int insertedHoldings = Convert.ToInt16(insert.ExecuteScalar());
+                    }
+
+                    using (SqlConnection balanceConn = new SqlConnection(tradeDao))
+                    {
+                        decimal balance = 0.00M;
+
+                        balanceConn.Open();
+                        SqlCommand reader = new SqlCommand("SELECT balance FROM Balance " +
+                                                "Where user_id = @user_id AND game_id = @game_id;", balanceConn);
+                        reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                        reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+
+
+                        SqlDataReader sqlBalance = reader.ExecuteReader();
+
+
+                        while (sqlBalance.Read())
+                        {
+                            SellAStock see = new SellAStock();
+                            see = CreateSellAStockFromReader(sqlBalance);
+                            balance = see.Balance;
+                        }
+
+
+
+
+
+                        balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
+
+
+                        using (SqlConnection newBalance = new SqlConnection(tradeDao))
+                        {
+                            newBalance.Open();
+                            SqlCommand update = new SqlCommand("Update balance Set balance = @balance " +
+                                                               "Where user_id = @user_id AND game_id = @game_id", newBalance);
+                            update.Parameters.AddWithValue("@balance", balance);
+                            update.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                            update.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+                            update.ExecuteNonQuery();
+                        }
+
+
+                    }
+
+                }
+            }
+
+            else
+            {
+
+                using (SqlConnection conn = new SqlConnection(tradeDao))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE holdings SET sale_price = @sale_price " +
+                                                    "WHERE stock = @stock AND user_id = @user_id AND game_id = @game_id AND purchase_price = @purchase_price;", conn);
+                    cmd.Parameters.AddWithValue("@sale_price", sellAStockDao.Sale_Price);
+                    cmd.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
+                    cmd.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                    cmd.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+                    cmd.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+
+                    cmd.ExecuteNonQuery();
+
+                    using (SqlConnection balanceConn = new SqlConnection(tradeDao))
+                    {
+                        decimal balance = 0.00M;
+
+                        balanceConn.Open();
+                        SqlCommand reader = new SqlCommand("SELECT balance FROM Balance " +
+                                                "Where user_id = @user_id AND game_id = @game_id;", balanceConn);
+                        reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                        reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+
+
+                        SqlDataReader sqlBalance = reader.ExecuteReader();
+
+
+                        while (sqlBalance.Read())
+                        {
+                            SellAStock see = new SellAStock();
+                            see = CreateSellAStockFromReader(sqlBalance);
+                            balance = see.Balance;
+                        }
+
+
+
+
+
+                        balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
+
+
+                        using (SqlConnection newBalance = new SqlConnection(tradeDao))
+                        {
+                            newBalance.Open();
+                            SqlCommand update = new SqlCommand("Update balance Set balance = @balance " +
+                                                               "Where user_id = @user_id AND game_id = @game_id", newBalance);
+                            update.Parameters.AddWithValue("@balance", balance);
+                            update.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                            update.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+
+                            update.ExecuteNonQuery();
+                        }
+
+
+                    }
+
+
+                    result = "SOLD";
+
+                }
+            }
+                return result;
+            
         }
 
 
@@ -205,23 +325,16 @@ namespace Capstone.DAO
 
             return list; 
         }
-        
 
 
-//        public SeeStocks TradesReader(SqlDataReader reader)
-//{
-//    SeeStocks list = new SeeStocks();
+        public SellAStock CreateQuantityFromReader(SqlDataReader reader)
+        {
+            SellAStock list = new SellAStock();
 
-//    list.Stock = Convert.ToString(reader["stock"]);
-//    list.UserName = Convert.ToString(reader["username"]);
-//    list.Quanitity = Convert.ToInt16(reader["quantity"]);
-//    list.PurchasePrice = Convert.ToDecimal(reader["purchase_price"]);
-//    //list.Sale_Price = Convert.ToDecimal(reader["sale_price"]);
-//    list.Game_Name = Convert.ToString(reader["game_name"]);
-//    list.Balance = Convert.ToDecimal(reader["balance"]);
+            list.Quantity = Convert.ToInt32(reader["quantity"]);
 
-//    return list;
-//}
+            return list;
+        }
 
 
     }
