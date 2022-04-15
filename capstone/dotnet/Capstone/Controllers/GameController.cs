@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
 {
-    [Route("game")]
+    [Route("[controller]")]
     [ApiController]
   
-    public class GameController : Controller
+    public class GameController : ControllerBase
     {
         private IGameDao gameDAO;
 
@@ -28,14 +28,15 @@ namespace Capstone.Controllers
             string gameName = gameInfo.GameName;
             DateTime startDate = gameInfo.StartDate;
             DateTime endDate = gameInfo.EndDate;
+
             int createdGameId = gameDAO.CreateGameId(gameName, userId, startDate, endDate);
             return createdGameId;
         }
 
-        [HttpGet("{userId}")]
-        public List<Holdings> ViewGameByUserId(int userId)
+        [HttpGet("viewgame/{userId}")]
+        public List<ViewGames> ViewGameByUserId(int userId)
         {
-            List<Holdings> listGames = gameDAO.ViewGamesByUserId(userId);
+            List<ViewGames> listGames = gameDAO.ViewGamesByUserId(userId);
             return listGames;
         }
 

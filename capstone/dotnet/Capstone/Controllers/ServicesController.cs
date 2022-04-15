@@ -12,18 +12,18 @@ namespace Capstone.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ClosePriceController : ControllerBase
+    public class ServicesController : ControllerBase
     {
-        private readonly IClosePriceDao closePriceDao;
-        public ClosePriceController(IClosePriceDao closePriceDao)
+        private readonly IClosePriceDao ClosePriceServices;
+        public ServicesController(IClosePriceDao closePriceServices)
         {
-            this.closePriceDao = closePriceDao;
+            this.ClosePriceServices = closePriceServices;
         }
 
         [HttpGet("/getprice/{stockTicker}")]
         public ClosePrice GetPrice(string stockTicker)
         {
-            ClosePrice price = closePriceDao.GetPrice(stockTicker);
+            ClosePrice price = ClosePriceServices.GetPrice(stockTicker);
             return price;
         }
     }
