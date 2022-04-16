@@ -69,7 +69,7 @@ namespace Capstone
             services.AddTransient<IClosePriceDao>(sp => new ClosePriceServices());
             services.AddTransient<IGameDao>(sp => new GameSqlDao(connectionString));
             services.AddTransient<ITradeDao>(sp => new TradeDao(connectionString));
-
+            services.AddTransient<ILeaderboards>(sp => new LeaderboardDao(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

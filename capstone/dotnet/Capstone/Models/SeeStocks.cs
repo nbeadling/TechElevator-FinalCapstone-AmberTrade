@@ -8,7 +8,7 @@ namespace Capstone.Models
     public class SeeStocks
     {
 
-        public string Stock { get; set; } 
+        public string Stock { get; set; }
         public string UserName { get; set; }
         public int Quanitity { get; set; } 
         public decimal PurchasePrice { get; set; } 

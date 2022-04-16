@@ -11,14 +11,16 @@ namespace Capstone.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-  
+
     public class GameController : ControllerBase
     {
         private IGameDao gameDAO;
+        private ILeaderboards leaderboardsDAO;
 
-        public GameController(IGameDao gameDAO)
+        public GameController(IGameDao gameDAO, ILeaderboards leaderboardsDAO)
         {
             this.gameDAO = gameDAO;
+            this.leaderboardsDAO = leaderboardsDAO;
         }
 
         [HttpPost("create")]
@@ -45,6 +47,13 @@ namespace Capstone.Controllers
         {
             int added = gameDAO.InvitePlayer(userId, gameId);
             return Created($"/game/{added}", added);
+        }
+
+        [HttpGet("leaderboards/{leaderboards}")]
+        public List<Leaderboards> Leaderboard(int leaderboards)
+        {
+            List<Leaderboards> leaderboards1 = leaderboardsDAO.LeaderboardBalance(leaderboards);
+            return leaderboards1;
         }
     }
 }
