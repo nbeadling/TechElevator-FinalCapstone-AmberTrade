@@ -39,6 +39,10 @@ namespace Capstone.Controllers
         [HttpPut("sellastock")]
         public string SellAStock(SellAStock sellAStockInfo)
         {
+            //SeeStocks seeStocks = new SeeStocks(sellAStockInfo);
+
+           
+
             string game_Id = TradeDao.SellAStock(sellAStockInfo);
 
             return game_Id;
