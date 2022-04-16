@@ -2,33 +2,12 @@
   <div class="content">
     <h1>Here is where stock info should be</h1>
     
-    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" />
-    <table class="table table-hover table-dark">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Ticker Symbol</th>
-              <th scope="col">Name</th>
-              <th scope="col">Current Price</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-        <tbody>
-            <tr v-bind:key="stock.stockTicker" v-for="stock in filteredData">
-              <td>{{stock.stockTicker}}</td>
-              <td>{{stock.companyName}}</td>
-              <td>{{ formatCurrency(stock.stockPrice) }}</td>
-              <td>
-                <router-link
-                  :to="{name: 'stock-details', params: {stockSymbol: stock.stockSymbol}}"
-                >
-                  <button type="button" class="btn btn-primary btn-rounded btn-sm m-0">Stock Details</button>
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" 
+    @keydown.enter="retrieveStock(searchStock)" />
 
-  
+
+  <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
+    
 
 
    <router-link to='researchstock'>Research Stocks</router-link>  <br>
@@ -53,7 +32,7 @@ export default {
   },
   computed: {
     stock(){
-      return this.$store.state.stockPrice.close;
+      return this.$store.state.stockPrice;
     }
   },
   methods: {
