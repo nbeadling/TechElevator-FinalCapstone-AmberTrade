@@ -12,6 +12,6 @@ namespace Capstone.DAO
 
         List<SeeStocks> SeeStockDao(SeeStocks seeStockDao);
         int BuyAStockDao(BuyAStock tradeInfoDao);
-        string SellAStock(SellAStock sellAStockDao);
+        decimal SellAStock(SellAStock sellAStockDao);
     }
 }

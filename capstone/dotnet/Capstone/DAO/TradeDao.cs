@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Capstone.Models;
 using System.Data.SqlClient;
 
 namespace Capstone.DAO
@@ -41,7 +39,6 @@ namespace Capstone.DAO
                 return seeStockList;
             }
         }
-
         public SeeStocks TradesReader(SqlDataReader reader)
         {
             SeeStocks list = new SeeStocks();
@@ -56,7 +53,6 @@ namespace Capstone.DAO
 
             return list;
         }
-
         public int BuyAStockDao(BuyAStock tradeInfoDao)
         {
             int result = 0;
@@ -117,7 +113,6 @@ namespace Capstone.DAO
             }
             return result;
         }
-
         public SeeStocks BuyAStockReader(SqlDataReader reader)
         {
             SeeStocks list = new SeeStocks();
@@ -126,7 +121,6 @@ namespace Capstone.DAO
 
             return list;
         }
-
         public int GetQuantity(SellAStock sellAStock)
         {
             int quantity = 0; 
@@ -144,8 +138,6 @@ namespace Capstone.DAO
 
                 SqlDataReader read = cmd.ExecuteReader();
 
-                
-
                 while (read.Read())
                 {
                     SellAStock see = new SellAStock();
@@ -154,17 +146,19 @@ namespace Capstone.DAO
                 }
 
                 return quantity; 
-
             }
         }
-
-        public string SellAStock(SellAStock sellAStockDao)
+        public decimal SellAStock(SellAStock sellAStockDao)
         {
-            string result = "";
+            decimal result = 0.00M;
 
             int sqlQuantity = GetQuantity(sellAStockDao);
 
-            if (sqlQuantity > sellAStockDao.Quantity)
+            if(sqlQuantity < sellAStockDao.Quantity)
+            {
+                result = 0;
+            }
+            else if (sqlQuantity > sellAStockDao.Quantity)
             {
                 using (SqlConnection conn = new SqlConnection(tradeDao))
                 {
@@ -180,24 +174,6 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
 
                     cmd.ExecuteNonQuery();
-                   
-                    using (SqlConnection insertSales = new SqlConnection(tradeDao))
-                    {
-                        insertSales.Open();
-
-                        SqlCommand insert = new SqlCommand("insert holdings (stock, user_id, game_id, quantity, purchase_price, sale_price) " +
-                                                           "values (@stock, @user_id, @game_id, @quantity, @purchase_price, @sale_price)", insertSales);
-                        insert.Parameters.AddWithValue("@sale_price", sellAStockDao.Sale_Price);
-                        insert.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
-                        insert.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
-                        insert.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
-                        insert.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
-                        insert.Parameters.AddWithValue("@quantity", sellAStockDao.Quantity);
-                        //insert.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
-
-                        insert.ExecuteNonQuery();
-                        //int insertedHoldings = Convert.ToInt16(insert.ExecuteScalar());
-                    }
 
                     using (SqlConnection balanceConn = new SqlConnection(tradeDao))
                     {
@@ -209,10 +185,7 @@ namespace Capstone.DAO
                         reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
                         reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
 
-
-
                         SqlDataReader sqlBalance = reader.ExecuteReader();
-
 
                         while (sqlBalance.Read())
                         {
@@ -221,12 +194,7 @@ namespace Capstone.DAO
                             balance = see.Balance;
                         }
 
-
-
-
-
                         balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
-
 
                         using (SqlConnection newBalance = new SqlConnection(tradeDao))
                         {
@@ -239,16 +207,12 @@ namespace Capstone.DAO
 
                             update.ExecuteNonQuery();
                         }
-
-
+                        result = balance;
                     }
-
                 }
             }
-
             else
             {
-
                 using (SqlConnection conn = new SqlConnection(tradeDao))
                 {
                     conn.Open();
@@ -273,10 +237,7 @@ namespace Capstone.DAO
                         reader.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
                         reader.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
 
-
-
                         SqlDataReader sqlBalance = reader.ExecuteReader();
-
 
                         while (sqlBalance.Read())
                         {
@@ -285,12 +246,7 @@ namespace Capstone.DAO
                             balance = see.Balance;
                         }
 
-
-
-
-
                         balance += sellAStockDao.Sale_Price * sellAStockDao.Quantity;
-
 
                         using (SqlConnection newBalance = new SqlConnection(tradeDao))
                         {
@@ -304,19 +260,30 @@ namespace Capstone.DAO
                             update.ExecuteNonQuery();
                         }
 
+                        result = balance;
 
+                        using (SqlConnection conns = new SqlConnection(tradeDao))
+                        {
+                            conns.Open();
+
+                            SqlCommand cmds = new SqlCommand("Update holdings set quantity = @sqlQuantity - @quantity " +
+                                                            "WHERE stock = @stock AND user_id = @user_id AND game_id = @game_id AND purchase_price = @purchase_price", conns);
+                            cmds.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
+                            cmds.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+                            cmds.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+                            cmds.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+                            cmds.Parameters.AddWithValue("@quantity", sellAStockDao.Quantity);
+                            cmds.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
+
+                            cmds.ExecuteNonQuery();
+                        }
                     }
-
-
-                    result = "SOLD";
 
                 }
             }
-                return result;
-            
+           
+            return result;
         }
-
-
         public SellAStock CreateSellAStockFromReader(SqlDataReader reader)
         {
             SellAStock list = new SellAStock();
@@ -325,8 +292,6 @@ namespace Capstone.DAO
 
             return list; 
         }
-
-
         public SellAStock CreateQuantityFromReader(SqlDataReader reader)
         {
             SellAStock list = new SellAStock();
@@ -335,8 +300,23 @@ namespace Capstone.DAO
 
             return list;
         }
-
-
     }
  }
 
+//using (SqlConnection insertSales = new SqlConnection(tradeDao))
+//{
+//    insertSales.Open();
+
+//    SqlCommand insert = new SqlCommand("insert holdings (stock, user_id, game_id, quantity, purchase_price, sale_price) " +
+//                                       "values (@stock, @user_id, @game_id, @quantity, @purchase_price, @sale_price)", insertSales);
+//    insert.Parameters.AddWithValue("@sale_price", sellAStockDao.Sale_Price);
+//    insert.Parameters.AddWithValue("@stock", sellAStockDao.Stock);
+//    insert.Parameters.AddWithValue("@user_id", sellAStockDao.User_Id);
+//    insert.Parameters.AddWithValue("@game_id", sellAStockDao.Game_Id);
+//    insert.Parameters.AddWithValue("@purchase_price", sellAStockDao.Purchase_Price);
+//    insert.Parameters.AddWithValue("@quantity", sellAStockDao.Quantity);
+//    //insert.Parameters.AddWithValue("@sqlQuantity", sqlQuantity);
+
+//    insert.ExecuteNonQuery();
+//    //int insertedHoldings = Convert.ToInt16(insert.ExecuteScalar());
+//}
