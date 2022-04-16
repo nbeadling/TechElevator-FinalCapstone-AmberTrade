@@ -1,7 +1,8 @@
 <template>
   <div class="content">
     <h1>Here is where stock info should be</h1>
-    <input type="text" id="search" placeholder="Search for your stock" />
+    
+    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" />
     <table class="table table-hover table-dark">
           <thead class="thead-dark">
             <tr>
@@ -38,14 +39,39 @@
 <script>
 
 import ResearchStockPrice from '../components/ResearchStockPrice.vue';
+import ApiService from '../services/ApiService.js'
+
 export default {
   components: { ResearchStockPrice },
 
 
   name: "research-stock-view",
+  data(){
+    return{
+    searchStock: '',
+    };
+  },
   computed: {
     stock(){
-      return this.$store.state.stockPrice;
+      return this.$store.state.stockPrice.close;
+    }
+  },
+  methods: {
+    retrieveStock(searchStock){
+    ApiService
+    .getStock(searchStock)
+    .then(response => {
+      this.$store.commit("SET_CURRENT_STOCK", response.data);
+    })
+    .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Stock not available. This stock may not exist."
+            );
+            this.$router.push("/");
+          }
+        });
+
     }
   }
 };
@@ -55,48 +81,43 @@ export default {
 
 
 <style>
-.content{
-  background:linear-gradient(to right, #96d9d9, #6969b3 );
-  margin-left: 200px;
-  padding-left: 20px;
 
+/* .table{
+  background-color: white;
 }
-* {
-  box-sizing: border-box;
+.table-dark{
+  color: rgb(223, 31, 63);
 }
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Style the side navigation */
-.sidenav {
-  height: 100%;
-  width: 200px;
+tr {
+  display: table-row;
+  vertical-align: middle;
+} */
+.research-background {
+  background-color: blue;
+  padding-top: 3%;
   position: fixed;
-  z-index: 1;
-  top: 28.5px;
-  left: 0;
-  background:#96d9d9;
-  overflow-x: hidden;
-  color:black;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 220px;
+}
+#research-container {
+  border: 2px solid black;
+  border-radius: 25px;
   
+  background-color: yellow;
+  color: green;
+  margin: auto;
+  padding: 25px;
+  width: 75%;
 }
-
-
-/* Side navigation links */
-.sidenav a {
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color on hover */
-.sidenav a:hover {
-  background-color: #FEE1C7;
-  color: black;
+#search {
+  margin: 20px;
+  border-radius: 10px;
+  padding: 2.5px;
+  width: 40%;
+  font-size: 55%;
 }
 
 

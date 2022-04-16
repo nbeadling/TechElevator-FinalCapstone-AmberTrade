@@ -43,11 +43,8 @@ export default new Vuex.Store({
       quantity: '', 
       purchasePrice: '', 
     },
-    stockPrice:{
-      stockTicker: 'AAPL', 
-      companyName: 'Apple',
-      stockPrice: '165.29',
-
+    stockPrice: {
+      close: '',
     }
 
   },
@@ -68,6 +65,9 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+    SET_CURRENT_STOCK(state, data) {
+      state.stockPrice = data;
+    },
   }
 })
