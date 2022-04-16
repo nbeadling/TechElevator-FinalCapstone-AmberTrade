@@ -52,7 +52,7 @@ const router = new Router({
     },
     {
       path: '/newgame',
-      name: 'new-game',
+      name: 'newgame',
       component: NewGame,
       meta: {
         requiresAuth: true
@@ -60,7 +60,7 @@ const router = new Router({
     },
     { 
     path: '/joingame',
-    name: 'join-game',
+    name: 'joingame',
     component: JoinGame,
     meta: {
       requiresAuth: true
