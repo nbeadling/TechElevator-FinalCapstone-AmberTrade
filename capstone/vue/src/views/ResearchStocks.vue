@@ -2,9 +2,12 @@
   <div class="content">
     <h1>Here is where stock info should be</h1>
     
-    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" 
-    @keydown.enter="retrieveStock(searchStock)" />
+    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
 
+
+<div class="form-group">          
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
+</div>  
 
   <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
     

@@ -76,6 +76,8 @@
 
 
 export default {
+  
+
   name: "new-game-form",
   
   data(){
@@ -91,9 +93,30 @@ export default {
       isLoading: true
     };
   },
+  /* 
+   methods: {
+   createNewGame(game){
+    ApiService
+    .getStock(searchStock)
+    .then(response => {
+      this.$store.commit("SET_CURRENT_STOCK", response.data);
+    })
+    .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Stock not available. This stock may not exist."
+            );
+            this.$router.push("/");
+          }
+        });
+
+    }
+  }
+  */
   
   
-};
+}
+
 </script>
 <style scoped>
 label {

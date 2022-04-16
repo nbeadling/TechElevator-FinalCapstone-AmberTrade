@@ -18,11 +18,16 @@
 <script>
 import NewGameForm from '../components/NewGameForm.vue';
 
+
 export default {
   components: { NewGameForm },
   
-  name: "new-game"
+  name: "new-game",
+
+ 
 };
+
+
 </script>
 
 
