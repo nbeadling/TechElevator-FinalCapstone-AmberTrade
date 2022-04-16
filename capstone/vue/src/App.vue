@@ -9,6 +9,12 @@
         <router-link to= 'stocks'>Stocks</router-link>
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+
+     <select name="dropdown-games"> 
+       <option value="1">My Games</option>  <!-- create event to get to view $route -->
+       <option value="2">Join a Game</option>
+       <option value="3">Create a Game</option>
+     </select>
      
      <li class="nav-item-dropdown">
         <a
