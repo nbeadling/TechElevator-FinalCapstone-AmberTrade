@@ -53,10 +53,6 @@ export default {
   
 };
 
-
-
-
-
 </script>
 
 

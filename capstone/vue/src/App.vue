@@ -6,13 +6,45 @@
       <div class="header-right">
         <router-link to='profile'>Profile</router-link>
         <router-link to='games'>Games</router-link>  
+        <router-link to= 'stocks'>Stocks</router-link>
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+     
+     <li class="nav-item-dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdown"
+          href="#"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="true"
+          >Games</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <router-link :to="{path: '/games/mygames'}" class="dropdown-item">My Games</router-link>
+          <router-link :to="{path: '/games/join'}" class="dropdown-item">Join a Game</router-link>
+          <router-link :to="{path: '/games/create'}" class="dropdown-item">Create New Game</router-link>
+        
+    </div>
+</li>
+
+     
+
+     
      </div>
     </div>
 
     <router-view />
-    
+
+<div id="footer-container">
+        <footer id="footer-body">
+            <p>&copy;2022 Amber Trade. All rights reserved.</p>
+            <p>Tech Elevator Orange 4 </p>
+        </footer>
+    </div>
+
+
+
   </div>
 </template>
 
@@ -74,6 +106,23 @@ body {
 #Amber-Logo{
   width: 100px;
 }
+#footer-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    flex-basis: auto;
+    width: 100%;
+    height: 90px;
+    background-color: purple;
+    position: absolute;
+    bottom: 0;
+}
+#footer-body{
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
 
 @media screen and (max-width: 500px) {
   .header a {
@@ -84,6 +133,11 @@ body {
   
   .header-right {
     float: none;
+  }
+
+  .nav-item-dropdown{
+    background-color: purple;
+
   }
 }
 

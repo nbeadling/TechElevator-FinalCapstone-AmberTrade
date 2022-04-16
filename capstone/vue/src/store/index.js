@@ -44,8 +44,10 @@ export default new Vuex.Store({
       purchasePrice: '', 
     },
     stockPrice:{
-      stockTicker: '', 
-      stockPrice: '',
+      stockTicker: 'AAPL', 
+      companyName: 'Apple',
+      stockPrice: '165.29',
+
     }
 
   },
