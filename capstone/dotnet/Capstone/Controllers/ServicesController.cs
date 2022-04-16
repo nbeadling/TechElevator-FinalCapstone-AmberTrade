@@ -26,6 +26,13 @@ namespace Capstone.Controllers
             ClosePrice price = ClosePriceServices.GetPrice(stockTicker);
             return price;
         }
+
+        //[HttpGet("/getprice/{stockTicker}")]
+        //public List<ClosePrice.Rootobject> GetPrice(string stockTicker)
+        //{
+        //    List<ClosePrice.Rootobject> price = ClosePriceServices.GetPrice(stockTicker);
+        //    return price;
+        //}
     }
 
 

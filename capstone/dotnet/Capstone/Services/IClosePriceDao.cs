@@ -11,5 +11,7 @@ namespace Capstone.Services
 
         ClosePrice GetPrice(string stockTicker);
 
+        //List<ClosePrice.Rootobject> GetPrice(string stockTicker);
+
     }
 }
