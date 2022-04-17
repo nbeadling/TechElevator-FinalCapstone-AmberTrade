@@ -5,34 +5,20 @@
       <img src= './images/amberTradeLogo.png' id="Amber-Logo" />
       <div class="header-right">
         <router-link to='profile'>Profile</router-link>
-        <router-link to='games'>Games</router-link>  
+        <router-link to='games'>Games</router-link> 
         <router-link to= 'stocks'>Stocks</router-link>
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+        <router-link to= 'aboutambertrade'>About</router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
 
      <select name="dropdown-games"> 
-       <option value="1">My Games</option>  <!-- create event to get to view $route -->
-       <option value="2">Join a Game</option>
-       <option value="3">Create a Game</option>
+       <option @click="$router.push('games')">My Games</option>  <!-- create event to get to view $route -->
+       <option @click="$router.push('joingame')">Join a Game</option>
+       <option @click="$router.push('newgames')">Create a Game</option>
      </select>
-     
-     <li class="nav-item-dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          id="navbarDropdown"
-          href="#"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="true"
-          >Games</a>
 
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link :to="{path: '/games/mygames'}" class="dropdown-item">My Games</router-link>
-          <router-link :to="{path: '/games/join'}" class="dropdown-item">Join a Game</router-link>
-          <router-link :to="{path: '/games/create'}" class="dropdown-item">Create New Game</router-link>
-        
-    </div>
-</li>
+     
+
 
      
 

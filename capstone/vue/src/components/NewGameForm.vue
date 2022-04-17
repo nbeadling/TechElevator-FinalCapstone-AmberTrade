@@ -80,13 +80,14 @@ export default {
       newGame: {
         gameId: '', 
         gameName: '',
-        userId: this.profile.userId,
+        userId: '',     // this.profile.userId, how to get the userId to autofill?
         startDate: '',
         endDate: '',
       },
       isLoading: true
     };
   },
+   
    
   computed: {
     profile(){

@@ -61,7 +61,7 @@ export default {
       .then(response => {
       if (response.status === 201){
         this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
-        confirm(`You have bought ${this.stockTransaction.quantity} shares of ${this.stockTransaction.stockTicker} at $${this.stockTransaction.purchasePrice}`)  
+        confirm(`You have bought ${this.stockTransaction.Quantity} shares of ${this.stockTransaction.Stock} at $${this.stockTransaction.Purchase_Price}`)  
         //popup to inform the gameId
       }
       })

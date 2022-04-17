@@ -10,7 +10,7 @@ import Games from '../views/Games.vue'
 import NewGame from '../views/NewGame.vue'
 import JoinGame from '../views/JoinGame.vue'
 import ResearchStock from '../views/ResearchStocks.vue'
-
+import AboutAmberTrade from '../views/AboutAmberTrade.vue'
 
 Vue.use(Router)
 
@@ -74,6 +74,13 @@ const router = new Router({
     meta: {
       requiresAuth: true
     }
+    },  {
+      path: "/aboutambertrade",
+      name: "AboutAmberTrade",
+      component: AboutAmberTrade,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: "/login",

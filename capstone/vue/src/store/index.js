@@ -37,11 +37,11 @@ export default new Vuex.Store({
       username:'theStore',
     },
     stockTransaction: {
-      stockTicker: '',
-      userId: '',
-      gameId: '',
-      quantity: '', 
-      purchasePrice: '', 
+      Stock: '',
+      User_Id: '',
+      Game_Id: '',
+      Quantity: '', 
+      Purchase_Price: '', 
     },
     stockPrice: {
       close: '',
