@@ -36,5 +36,15 @@ JSON BODY = {Stock, User_Id, Game_Id, Quantity, Purchase_Price}
         "Quantity": 100,
         "Purchase_Price": 95.53
  }
-
+(7) <sell a stock> (POST method)
+path = https://localhost:44315/Trade/sellastock
+JSON BODY = {Stock, User_Id, Game_Id, Quantity, Purchase_Price, Sale_Price}
+{
+        "Stock": "CCC",
+        "User_Id": 4,
+        "Game_Id": 105,
+        "Quantity": 200,
+        "Purchase_Price": 500,
+        "Sale_Price": 10
+    }
 */

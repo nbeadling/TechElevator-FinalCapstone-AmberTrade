@@ -5,12 +5,12 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Profile from '../views/Profile.vue'
 import Games from '../views/Games.vue'
 import NewGame from '../views/NewGame.vue'
 import JoinGame from '../views/JoinGame.vue'
 import ResearchStock from '../views/ResearchStocks.vue'
 import AboutAmberTrade from '../views/AboutAmberTrade.vue'
+import MyGames from '../views/MyGames.vue'
 
 Vue.use(Router)
 
@@ -35,14 +35,7 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: Profile,
-      meta: {
-        requiresAuth: true
-      }
-    },
+   
     {
       path: '/stocks',
       name: 'researchstockview',
@@ -55,6 +48,14 @@ const router = new Router({
       path: '/games',
       name: 'games',
       component: Games,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/mygames',
+      name: 'mygames',
+      component: MyGames,
       meta: {
         requiresAuth: true
       }

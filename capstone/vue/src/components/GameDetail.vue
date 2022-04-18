@@ -7,6 +7,8 @@
           <li>{{game.endDate}}</li>
           <li>{{game.gameId}}</li>
           <li>{{game.gameName}}</li>
+          <li> the leaderboard.  Sort by name or by balance</li>
+          
         </ul>
        
 
