@@ -8,7 +8,9 @@ namespace Capstone.DAO
     public interface ILeaderboards
     {
         //userid int variable needs to change
-        List<Leaderboards> LeaderboardBalance(int userid);
+        Dictionary<string, decimal> LeaderboardBalance(int userid);
+
+
 
     }
 }

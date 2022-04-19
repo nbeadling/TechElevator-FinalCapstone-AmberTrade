@@ -13,12 +13,17 @@ namespace Capstone.Models
         public string Stock { get; set; }
         public int Quanitity { get; set; }
 
-        public Leaderboards(int game_id, int user_id, string stock, int quantity)
+        public string Username { get; set; }
+
+        public Leaderboards(int game_id, int user_id, string stock, int quantity, string username)
         {
             this.GameId = game_id;
             this.UserId = user_id;
             this.Stock = stock;
             this.Quanitity = quantity;
+            this.Username = username;
+
+            //
         }
 
         public Leaderboards()

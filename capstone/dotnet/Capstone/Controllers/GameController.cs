@@ -50,9 +50,9 @@ namespace Capstone.Controllers
         }
 
         [HttpGet("leaderboards/{leaderboards}")]
-        public List<Leaderboards> Leaderboard(int leaderboards)
+        public Dictionary<string, decimal> Leaderboard(int leaderboards)
         {
-            List<Leaderboards> leaderboards1 = leaderboardsDAO.LeaderboardBalance(leaderboards);
+            Dictionary<string, decimal> leaderboards1 = leaderboardsDAO.LeaderboardBalance(leaderboards);
             return leaderboards1;
         }
     }
