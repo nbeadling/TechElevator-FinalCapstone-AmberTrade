@@ -2,7 +2,7 @@
   <div>
     <div id="creategame-container">    
       <div id="creategame" class="text-center">
-      <form class="form-creategame" @submit.prevent="newGame">        
+      <form class="form-group" @submit.prevent="createNewGame(newGame)">        
       <h1 class="h3 mb-3 font-weight-normal">Create Game</h1>
 
 
@@ -21,7 +21,7 @@
   id="enddate" 
   class="form-control" 
   placeholder="DateTime.Now" 
-  v-model="endDate" required />
+  v-model="newGame.endDate" required />
 </div>
 
 <div class="form-group">          
@@ -30,8 +30,8 @@
   id="endtime" 
   class="form-control" 
   placeholder= "10:00:00"
-  v-model="endTime" 
-  required /> 
+  
+   /> 
 </div>
 
 <div class="form-group"> 
@@ -40,7 +40,7 @@
   id="name" 
   class="form-control" 
   placeholder="Game Name" 
-  v-model="newGame.name" 
+  v-model="newGame.gameName" 
   required />
 </div>
 
@@ -51,7 +51,7 @@
   placeholder="Description"            
   v-model="newGame.description" 
   rows="4" 
-  required/>        
+  />        
 </div>
 
 <div class="form-group">          
@@ -84,7 +84,6 @@ export default {
         startDate: '',
         endDate: '',
       },
-      isLoading: true
     };
   },
    
@@ -100,12 +99,14 @@ export default {
    
    methods: {
    createNewGame(newGame){
+    newGame.userId= this.profile.userId
     ApiService
     .createGame(newGame)
     .then(response => {
       if (response.status === 201){
         this.$store.commit("SET_CURRENT_GAME", response.data);
         confirm(`You have created a game with gameId: ${this.createdGame.gameId}`)  //popup to inform the gameId
+        this.createdGame()
       }
       })
       .catch(error => {

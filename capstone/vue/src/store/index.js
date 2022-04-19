@@ -25,10 +25,10 @@ export default new Vuex.Store({
     holdings: [], //this is an array of stocks the user has in a game
     game:{
       gameId: '', 
-      gameName: 'game for my friends',
-      userId: '1234',
-      startDate: 'today',
-      endDate:'2/30/2022',
+      gameName: '',
+      userId: '',
+      startDate: '',
+      endDate:'',
     },
     profile: {
       userId: '',
@@ -40,6 +40,7 @@ export default new Vuex.Store({
       Game_Id: '',
       Quantity: '', 
       Purchase_Price: '', 
+      Sell_Price: ''
     },
     stockPrice: {
       close: '',

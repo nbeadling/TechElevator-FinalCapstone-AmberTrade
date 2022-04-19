@@ -31,12 +31,33 @@ export default {
   data(){
     return{
     searchStock: '',
+    stockQuotes: [],
+    newBuyTransaction: {
+      Stock: '',
+      User_Id: '',
+      Game_Id: '',
+      Quantity: '', 
+      Purchase_Price: '', 
+    },
+    newSellTransaction: {
+      Stock: '',
+      User_Id: '',
+      Game_Id: '',
+      Quantity: '', 
+      Purchase_Price: '', 
+      Sale_Price: '',
+    },
+    Quote: {
+      stock: '',
+      price: '',
+    },
     };
   },
   computed: {
     stock(){
       return this.$store.state.stockPrice;
-    }
+    },
+    
   },
   methods: {
     retrieveStock(searchStock){
@@ -61,7 +82,30 @@ export default {
       .then(response => {
       if (response.status === 201){
         this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
-        confirm(`You have bought ${this.stockTransaction.Quantity} shares of ${this.stockTransaction.Stock} at $${this.stockTransaction.Purchase_Price}`)  
+        confirm(`You have bought ${this.newBuyTransaction.Quantity} shares of ${this.newBuyTransaction.Stock} at $${this.newBuyTransaction.Purchase_Price}`)  
+        //popup to inform the gameId
+      }
+      })
+     .catch(error => {
+        this.handleErrorResponse(error, "adding");
+      })
+
+      .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Sorry, something went wrong. This transaction did not occur. Please try again."
+            );
+          }
+        });
+    },
+
+    sellStock(stockTransaction){
+      ApiService
+      .sellStock(stockTransaction)
+      .then(response => {
+      if (response.status === 201){
+        this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
+        confirm(`You have sold ${this.newSellTransaction.Quantity} shares of ${this.newSellTransaction.Stock} at $${this.newSellTransaction.Purchase_Price}`)  
         //popup to inform the gameId
       }
       })
@@ -80,6 +124,18 @@ export default {
 
   }
 };
+// (7) <sell a stock> (POST method)
+// path = https://localhost:44315/Trade/sellastock
+// JSON BODY = {Stock, User_Id, Game_Id, Quantity, Purchase_Price, Sale_Price}
+// {
+//         "Stock": "CCC",
+//         "User_Id": 4,
+//         "Game_Id": 105,
+//         "Quantity": 200,
+//         "Purchase_Price": 500,
+//         "Sale_Price": 10
+//     }
+
 </script>
 
 

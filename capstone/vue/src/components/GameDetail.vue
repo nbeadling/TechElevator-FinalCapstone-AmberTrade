@@ -17,8 +17,7 @@
 </template>
 
 <script>
-
-
+import ApiService from '../services/ApiService.js';
 
 export default {
   name: "game-detail",
@@ -35,6 +34,21 @@ export default {
       isLoading: true
     };
   },
+
+  methods:{
+    getGameDetail(gameId) {
+      ApiService
+      .getGame(gameId)
+      .then(response => {
+        this.$store.commit("SET_CURRENT_GAME", response.data);
+        
+// for dynamic routing to the newly created game
+        // if (this.$route.name == "Home" && response.status === 200 && response.data.length > 0) {
+        //   this.$router.push(`/board/${response.data[0].id}`);
+        // } 
+      });
+    },
+  }
   
   
 };

@@ -51,7 +51,6 @@ export default {
         gameId: '', 
         gameName: '', 
       },
-      isLoading: true
     };
   },
   created(){
@@ -70,10 +69,6 @@ export default {
       .getUserGames(userId)
       .then(response => {
         this.$store.commit("SET_GAMES_LIST", response.data);
-
-        if (this.$route.name == "Home" && response.status === 200 && response.data.length > 0) {
-          this.$router.push(`/board/${response.data[0].id}`);
-        }
       });
     },
   }

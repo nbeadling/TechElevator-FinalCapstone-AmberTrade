@@ -81,14 +81,6 @@ export default {
   }
 };
 
-// (1) <invite player to game> (POST method)
-// path = https://localhost:44315/game/create
-// JSON BODY = {gameId}, {userId}, {startDate}, {endDate}
-//       { "gameName": "tyler1",
-//         "userId": 2,
-//         "startDate": "2012-06-18",
-//         "endDate": "2012-12-18" }
-
 </script>
 
 
