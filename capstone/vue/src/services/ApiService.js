@@ -13,10 +13,6 @@ export default {
 
 //GET the c# endpoints:
 
-  getUser() {
-    return axios.get('/');
-  },
-
   //will this be getting all users according to a gameId?
   getGame() {
     return axios.get(`/`)
@@ -48,6 +44,10 @@ addPlayer(userId) {
 createGame(gameName) {
   return axios.post(`/game/create/${gameName}`)
 },
+
+buyStock(stockTransaction){
+  return axios.post(`/trade/buyastock`, stockTransaction)
+}
 
 
 

@@ -25,7 +25,7 @@ export default new Vuex.Store({
     holdings: [], //this is an array of stocks the user has in a game
     game:{
       gameId: '', 
-      gameName: 'gamefor my friends',
+      gameName: 'game for my friends',
       userId: '1234',
       startDate: 'today',
       endDate:'2/30/2022',
@@ -37,11 +37,11 @@ export default new Vuex.Store({
       username:'theStore',
     },
     stockTransaction: {
-      stockTicker: '',
-      userId: '',
-      gameId: '',
-      quantity: '', 
-      purchasePrice: '', 
+      Stock: '',
+      User_Id: '',
+      Game_Id: '',
+      Quantity: '', 
+      Purchase_Price: '', 
     },
     stockPrice: {
       close: '',
@@ -69,5 +69,14 @@ export default new Vuex.Store({
     SET_CURRENT_STOCK(state, data) {
       state.stockPrice = data;
     },
+    SET_CURRENT_GAME(state, data){
+      state.game = data;
+    },
+    SET_GAMES_LIST(state, data){
+      state.games =data;
+    },
+    SET_CURRENT_TRANSACTION(state, data){
+      state.stockTransaction = data;
+    }
   }
 })

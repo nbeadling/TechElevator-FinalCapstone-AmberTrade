@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div id="creategame-container">    
       <div id="creategame" class="text-center">
       <form class="form-creategame" @submit.prevent="newGame">        
@@ -65,59 +64,67 @@
       </div>
 
   </div> 
-</template>
-  
-
-         
+</template>    
          
         
 <script>
-
+import ApiService from '../services/ApiService.js';
 
 
 export default {
-  
 
   name: "new-game-form",
   
   data(){
     return {
       newGame: {
+        gameId: '', 
+        gameName: '',
+        userId: '',     // this.profile.userId, how to get the userId to autofill?
         startDate: '',
         endDate: '',
-        gameId: '', 
-        gameName: '', 
-        userId: '',
-
       },
       isLoading: true
     };
   },
-  /* 
+   
+   
+  computed: {
+    profile(){
+      return this.$store.state.user;
+    },
+    createdGame(){
+      return this.$store.state.game;
+    }
+  },
+   
    methods: {
-   createNewGame(game){
+   createNewGame(newGame){
     ApiService
-    .getStock(searchStock)
+    .createGame(newGame)
     .then(response => {
-      this.$store.commit("SET_CURRENT_STOCK", response.data);
+      if (response.status === 201){
+        this.$store.commit("SET_CURRENT_GAME", response.data);
+        confirm(`You have created a game with gameId: ${this.createdGame.gameId}`)  //popup to inform the gameId
+      }
+      })
+      .catch(error => {
+        this.handleErrorResponse(error, "adding");
     })
+
     .catch(error => {
           if (error.response && error.response.status === 404) {
             alert(
-              "Stock not available. This stock may not exist."
+              "Sorry, something went wrong. This game was not created. Please try again."
             );
-            this.$router.push("/");
           }
         });
-
-    }
+    } 
   }
-  */
-  
-  
 }
-
 </script>
+
+
 <style scoped>
 label {
   float: left;

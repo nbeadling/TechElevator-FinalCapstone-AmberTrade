@@ -1,18 +1,21 @@
 <template>
   <div class="content">
-    
+   <router-link to='newgame'>Create a new Game</router-link>  <br>
+    <router-link to='joingame'>Join Game</router-link>  
 
-  <user-detail></user-detail>
+   <game-list></game-list>
 
   </div>
 
 
 </template>
 <script>
-import UserDetail from '../components/UserDetail.vue';
+import GameList from '../components/GameList.vue';
 export default {
-  components: { UserDetail },
-  name: "home"
+  components: { GameList },
+
+
+  name: "my-games"
 };
 </script>
 
@@ -34,10 +37,6 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
-
-
-
-
 
 
 </style>

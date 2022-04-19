@@ -54,7 +54,30 @@ export default {
           }
         });
 
-    }
+    },
+    buyStock(stockTransaction){
+      ApiService
+      .buyStock(stockTransaction)
+      .then(response => {
+      if (response.status === 201){
+        this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
+        confirm(`You have bought ${this.stockTransaction.Quantity} shares of ${this.stockTransaction.Stock} at $${this.stockTransaction.Purchase_Price}`)  
+        //popup to inform the gameId
+      }
+      })
+     .catch(error => {
+        this.handleErrorResponse(error, "adding");
+      })
+
+      .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Sorry, something went wrong. This transaction did not occur. Please try again."
+            );
+          }
+        });
+    },
+
   }
 };
 </script>

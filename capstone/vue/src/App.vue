@@ -4,39 +4,25 @@
     <div class="header">
       <img src= './images/amberTradeLogo.png' id="Amber-Logo" />
       <div class="header-right">
-        <router-link to='profile'>Profile</router-link>
-        <router-link to='games'>Games</router-link>  
-        <router-link to= 'stocks'>Stocks</router-link>
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+       <!-- <button @click="$router.push({name: 'about-something', params: { id: 'abc123' },})">Click to Navigate</button> -->
 
-     <select name="dropdown-games"> 
-       <option value="1">My Games</option>  <!-- create event to get to view $route -->
-       <option value="2">Join a Game</option>
-       <option value="3">Create a Game</option>
-     </select>
+      <!-- <router-link to='games'>Games -->
+
+      <select class= "header" name="dropdown-games">  
+        <router-link tag="option" class="header" to="joingame">Join Game</router-link>
+       <option @click="this.$router.push('mygames')">My Games</option> 
+       <option @click="this.$router.push('newgames')">Create a Game</option>
+       <option v-bind:to="{ name: 'joingame' }">Join Game</option>   
+     </select> 
      
-     <li class="nav-item-dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          id="navbarDropdown"
-          href="#"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="true"
-          >Games</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <router-link :to="{path: '/games/mygames'}" class="dropdown-item">My Games</router-link>
-          <router-link :to="{path: '/games/join'}" class="dropdown-item">Join a Game</router-link>
-          <router-link :to="{path: '/games/create'}" class="dropdown-item">Create New Game</router-link>
+  <!-- </router-link> -->
+     
+        <router-link to= 'stocks'>Stocks</router-link>
         
-    </div>
-</li>
-
-     
-
-     
+        <router-link to= 'aboutambertrade'>About</router-link>
+        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+    
      </div>
     </div>
 
@@ -65,6 +51,7 @@ export default {
 
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,600;1,600&display=swap');
 * {box-sizing: border-box;}
 
 body { 
