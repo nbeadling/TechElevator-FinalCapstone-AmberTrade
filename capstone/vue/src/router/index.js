@@ -11,6 +11,7 @@ import JoinGame from '../views/JoinGame.vue'
 import ResearchStock from '../views/ResearchStocks.vue'
 import AboutAmberTrade from '../views/AboutAmberTrade.vue'
 import MyGames from '../views/MyGames.vue'
+import ResearchStockPrice from '../components/ResearchStockPrice'
 
 Vue.use(Router)
 
@@ -40,6 +41,14 @@ const router = new Router({
       path: '/stocks',
       name: 'researchstockview',
       component: ResearchStock,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/researchstock',
+      name: 'researchstock',
+      component: ResearchStockPrice,
       meta: {
         requiresAuth: true
       }

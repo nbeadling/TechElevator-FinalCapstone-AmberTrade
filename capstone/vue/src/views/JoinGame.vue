@@ -41,11 +41,54 @@
 
 </template>
 <script>
-export default {
- 
+import ApiService from '../services/ApiService.js';
 
-  name: "join-game"
+export default {
+  name: "join-game",
+  data(){
+    return {
+      addNewPlayer: {
+        gameId: '', 
+        gameName: '',
+        userId: '',     
+        startDate: '',
+        endDate: '',
+      }
+    }
+  },
+
+  methods: {
+   addPlayerToGame(addNewPlayer){
+    ApiService
+    .addPlayer(addNewPlayer)
+    .then(response => {
+      if (response.status === 201){
+        confirm(`You have added a player to the game: ${this.addNewPlayer.gameName}`)  //popup 
+      }
+      })
+      .catch(error => {
+        this.handleErrorResponse(error, "adding");
+    })
+
+    .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Sorry, something went wrong. This game was not created. Please try again."
+            );
+          }
+        });
+    } 
+  }
 };
+
+// (1) <invite player to game> (POST method)
+// path = https://localhost:44315/game/create
+// JSON BODY = {gameId}, {userId}, {startDate}, {endDate}
+//       { "gameName": "tyler1",
+//         "userId": 2,
+//         "startDate": "2012-06-18",
+//         "endDate": "2012-12-18" }
+
 </script>
 
 

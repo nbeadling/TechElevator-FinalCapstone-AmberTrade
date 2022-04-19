@@ -20,21 +20,6 @@ export default {
 
 
 <style>
-.content{
-  background:linear-gradient(to right, #96d9d9, #6969b3 );
-  margin-left: 10px;
-  padding-left: 20px;
-
-}
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 
 
 

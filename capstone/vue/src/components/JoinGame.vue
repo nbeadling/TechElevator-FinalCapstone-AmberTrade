@@ -1,6 +1,7 @@
 <template>
   <div id="creategame-container">
-    <div id="creategame" class="text-center">
+    <!--
+      <div id="creategame" class="text-center">
       <div class="table-responsive">
         <h1>Join a Game</h1>
         <table class="table table-hover table-dark" v-if="data">
@@ -29,6 +30,7 @@
         </table>
       </div>
     </div>
+    -->
   </div>
 </template>
 

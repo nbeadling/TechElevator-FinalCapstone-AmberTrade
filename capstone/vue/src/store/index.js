@@ -31,10 +31,8 @@ export default new Vuex.Store({
       endDate:'2/30/2022',
     },
     profile: {
-      userId: 'Fake1234',
-      firstName: 'NotConnectedToAPI',
-      lastName: 'fromVuex',
-      username:'theStore',
+      userId: '',
+      username:'',
     },
     stockTransaction: {
       Stock: '',

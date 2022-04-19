@@ -1,21 +1,22 @@
 <template>
+
+ 
   <div class="content">
     <router-link to='mygames'>My Games</router-link> <br>
    <router-link to='newgame'>Create a new Game</router-link>  <br>
     <router-link to='joingame'>Join Game</router-link> 
-    
-
-
   </div>
 
 
 </template>
 <script>
 export default {
- 
-
-
-  name: "games"
+  name: "games",
+  data() {
+    return {
+      isOpen: false,
+    }
+  }
 };
 </script>
 
