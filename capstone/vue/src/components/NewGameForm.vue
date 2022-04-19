@@ -21,7 +21,8 @@
   id="enddate" 
   class="form-control" 
   placeholder="DateTime.Now" 
-  v-model="newGame.endDate" required />
+  v-model="newGame.endDate" 
+  required />
 </div>
 
 <div class="form-group">          
@@ -78,9 +79,8 @@ export default {
   data(){
     return {
       newGame: {
-        gameId: '', 
         gameName: '',
-        userId: '',     // this.profile.userId, how to get the userId to autofill?
+        userId: '', 
         startDate: '',
         endDate: '',
       },
@@ -99,11 +99,12 @@ export default {
    
    methods: {
    createNewGame(newGame){
+     alert(newGame.gameName);
     newGame.userId= this.profile.userId
     ApiService
     .createGame(newGame)
     .then(response => {
-      if (response.status === 201){
+      if (response.status === 200){
         this.$store.commit("SET_CURRENT_GAME", response.data);
         confirm(`You have created a game with gameId: ${this.createdGame.gameId}`)  //popup to inform the gameId
         this.createdGame()
@@ -135,7 +136,7 @@ label {
         background-size: cover;
   padding-top: 5%;
   padding-bottom: 10%;
-  position: fixed;
+  position: relative;
   overflow: auto;
   width: 100%;
   height: 100%;

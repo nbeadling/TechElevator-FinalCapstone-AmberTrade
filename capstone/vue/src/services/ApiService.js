@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export default {
 
   login(user) {
@@ -18,14 +19,15 @@ export default {
     return axios.get(`/game/${gameId}`)
   },
 
-  //#2
-  getUserGames(userId) {
-    return axios.get(`/game/${userId}`)
+  //the complete portfolio:  all their stocks in all their games 
+  getPortfolio(userName) {
+    return axios.get(`/trade/seestocks/${userName}`)
   },
 
-  //getHoldings may need to switch to being a loop to get all their stocks via userId and gameId
-  getHoldings() {
-    return axios.get(`}`)
+  //#2
+  getUserGames(userId) {
+    alert("We're calling the API")
+    return axios.get(`/game/viewgame/${userId}`)
   },
 
   //#3
@@ -41,8 +43,9 @@ addPlayer(userId) {
 },
 
 //3
-createGame(gameName) {
-  return axios.post(`/game/create/${gameName}`)
+createGame(newGame) {
+  alert(newGame)
+  return axios.post(`/game/create`, newGame)
 },
 
 buyStock(buyTransaction){
@@ -54,16 +57,4 @@ sellStock(sellTransaction){
 }
 
 
-
-
-
-
-
-
-
 }
-
-
-
-
-

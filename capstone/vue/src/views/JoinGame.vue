@@ -16,17 +16,16 @@
               <th scope="col">Game Ends</th>
               <th scope="col"></th>
             </tr>
+           <!-- "SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance" -->
           </thead>
           <tbody>
-            <tr v-bind:key="game.gameId" v-for="game in data">
-              <td>{{ game.creatorUsername }}</td>
-              <td>{{ game.name }}</td>
-              <td>{{ game.dateCreated }}</td>
+            <tr v-bind:key="game.gameId" v-for="game in this.$store.state.games">
+              <td>{{ game.username }}</td>
+              <td>{{ game.gameName }}</td>
+              <td>{{ game.startDate }}</td>
               <td>{{ game.endDate }}</td>
               <td>
-                <router-link :to="{ name: 'join-game', params: {id: game.gameId} }">
                   <button type="button" class="btn btn-primary btn-rounded btn-sm m-0">Join Game</button>
-                </router-link>
               </td>
             </tr>
           </tbody>
@@ -57,6 +56,15 @@ export default {
     }
   },
 
+  computed: {
+    profile(){
+      return this.$store.state.user;
+    },
+    game(){
+      return this.$store.state.game;
+    }
+  },
+
   methods: {
    addPlayerToGame(addNewPlayer){
     ApiService
@@ -77,8 +85,22 @@ export default {
             );
           }
         });
-    } 
-  }
+    },
+
+    retrieveGames(userId) {
+      alert("calling an API service in the joingame view")
+      ApiService
+      .getUserGames(userId)
+      .then(response => {
+        this.$store.commit("SET_GAMES_LIST", response.data);
+      });
+    },
+
+  },
+  
+  created() {
+    this.retrieveGames(this.profile.userId);
+  }, 
 };
 
 </script>
@@ -93,7 +115,7 @@ export default {
  background:linear-gradient(to right, #59c3c3, #6969b3 );
   background-size: cover;
   padding-top: 5%;
-  position: fixed;
+  position: relative;
   overflow: auto;
   width: 100%;
   height: 100%;
@@ -106,7 +128,7 @@ export default {
   margin: 50px;
   border-radius: 25px;
   border: 2px solid rgba(0, 0, 0, 0.05);
-  background-color: purple;
+  background-color: white;
   color: black;
 }
 #thead-purple{

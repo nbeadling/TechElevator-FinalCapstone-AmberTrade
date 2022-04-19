@@ -16,7 +16,7 @@
        <option v-bind:to="{ name: 'joingame' }">Join Game</option>   
      </select> 
      </router-link>
-      
+
         <router-link to= 'stocks'>Stocks</router-link>
         
         <router-link to= 'aboutambertrade'>About</router-link>
@@ -110,7 +110,7 @@ body {
     width: 100%;
     height: 90px;
     background-color: purple;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 #footer-body{

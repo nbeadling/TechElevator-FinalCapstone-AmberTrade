@@ -21,7 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     users: [],
-    games: [],
+    games: [], // "SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance"
     holdings: [], //this is an array of stocks the user has in a game
     game:{
       gameId: '', 
@@ -29,7 +29,9 @@ export default new Vuex.Store({
       userId: '',
       startDate: '',
       endDate:'',
+      description: '',
     },
+                      
     profile: {
       userId: '',
       username:'',
