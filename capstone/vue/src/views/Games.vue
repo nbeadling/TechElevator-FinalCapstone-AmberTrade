@@ -2,7 +2,6 @@
 
  
   <div class="content">
-    <router-link to='mygames'>My Games</router-link> <br>
    <router-link to='newgame'>Create a new Game</router-link>  <br>
     <game-list></game-list>
  

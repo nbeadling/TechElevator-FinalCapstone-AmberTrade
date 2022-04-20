@@ -3,30 +3,22 @@
     <h1>Here is where stock info should be</h1>
     
     <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
+      <div class="form-group">          
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
+      </div>  
 
-
-<div class="form-group">          
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
-</div>  
-
-  <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
+      <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
     
 
 
-   <router-link to='researchstock'>Research Stocks</router-link>  <br>
-   <research-stock-price></research-stock-price>
 
 </div>
 </template>
 <script>
 
-import ResearchStockPrice from '../components/ResearchStockPrice.vue';
 import ApiService from '../services/ApiService.js'
 
 export default {
-  components: { ResearchStockPrice },
-
-
   name: "research-stock-view",
   data(){
     return{
@@ -60,7 +52,15 @@ export default {
     
   },
   methods: {
-    retrieveStock(searchStock){
+  getUserPortfolio(userId) {
+      ApiService
+      .getPortfolio(userId)
+      .then(response => {
+        this.$store.commit("SET_CURRENT_PORTFOLIO", response.data);
+      });
+    },
+
+  retrieveStock(searchStock){
     ApiService
     .getStock(searchStock)
     .then(response => {
@@ -76,7 +76,7 @@ export default {
         });
 
     },
-    buyStock(stockTransaction){
+  buyStock(stockTransaction){
       ApiService
       .buyStock(stockTransaction)
       .then(response => {
@@ -98,8 +98,9 @@ export default {
           }
         });
     },
+ 
 
-    sellStock(stockTransaction){
+  sellStock(stockTransaction){
       ApiService
       .sellStock(stockTransaction)
       .then(response => {
@@ -124,17 +125,7 @@ export default {
 
   }
 };
-// (7) <sell a stock> (POST method)
-// path = https://localhost:44315/Trade/sellastock
-// JSON BODY = {Stock, User_Id, Game_Id, Quantity, Purchase_Price, Sale_Price}
-// {
-//         "Stock": "CCC",
-//         "User_Id": 4,
-//         "Game_Id": 105,
-//         "Quantity": 200,
-//         "Purchase_Price": 500,
-//         "Sale_Price": 10
-//     }
+
 
 </script>
 

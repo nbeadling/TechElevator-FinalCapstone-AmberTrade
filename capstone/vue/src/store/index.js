@@ -22,6 +22,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     users: [],
     games: [], // "SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance"
+    leaderboard: [],
     holdings: [], //this is an array of stocks the user has in a game
     game:{
       gameId: '', 
@@ -47,10 +48,7 @@ export default new Vuex.Store({
     stockPrice: {
       close: '',
     },
-    gameBalance: {
-      gameId: '', 
-
-    }
+   
 
   },
 
@@ -82,6 +80,12 @@ export default new Vuex.Store({
     },
     SET_CURRENT_TRANSACTION(state, data){
       state.stockTransaction = data;
+    },
+    SET_CURRENT_LEADERBOARD(state, data) {
+      state.leaderboard= data;
+    },
+    SET_CURRENT_PORTFOLIO(state, data) {
+      state.leaderboard= data;
     }
   }
 })

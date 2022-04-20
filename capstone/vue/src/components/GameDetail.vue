@@ -41,15 +41,14 @@ export default {
       .getGame(gameId)
       .then(response => {
         this.$store.commit("SET_CURRENT_GAME", response.data);
-        
-// for dynamic routing to the newly created game
-        // if (this.$route.name == "Home" && response.status === 200 && response.data.length > 0) {
-        //   this.$router.push(`/board/${response.data[0].id}`);
-        // } 
+
       });
     },
   }
-  
+  // for dynamic routing to the newly created game
+        // if (this.$route.name == "Home" && response.status === 200 && response.data.length > 0) {
+        //   this.$router.push(`/board/${response.data[0].id}`);
+        // } 
   
 };
 </script>

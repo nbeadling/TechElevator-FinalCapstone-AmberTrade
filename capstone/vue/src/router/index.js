@@ -54,7 +54,7 @@ const router = new Router({
       }
     },
     {//parameterized : userId
-      path: '/games',
+      path: '/games/:id',
       name: 'games',
       component: Games,
       meta: {
@@ -62,7 +62,7 @@ const router = new Router({
       }
     },
     {//parameterized: gameId
-      path: '/mygames',
+      path: '/mygames/:id',
       name: 'mygames',
       component: MyGames,
       meta: {

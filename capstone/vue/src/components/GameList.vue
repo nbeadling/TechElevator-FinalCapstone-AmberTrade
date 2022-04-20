@@ -1,33 +1,46 @@
 <template>
   <div>
  
-        <h1>Here is the list for all your games:</h1>
-
-          <table class="table table-hover table-dark" >
+      <div id="joingame-container">
+    <div id="joingame" class="text-center">
+      <div class="table-responsive">
+        <h1>See your games below:</h1>
+        <table class="table table-hover table-dark" v-if="game">
           <thead class="thead-purple">
             <tr>
-              <th scope="col">Creator</th>
               <th scope="col">Game Name</th>
               <th scope="col">Date Created</th>
               <th scope="col">Game Ends</th>
               <th scope="col"></th>
-            </tr>           
+            </tr>
+           <!-- "SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance" -->
           </thead>
-          <tbody>
-            <tr v-bind:key="game.gameId" v-for="game in data">
-              <td>{{ game.creatorUsername }}</td>
-              <td>{{ game.name }}</td>
-              <td>{{ game.dateCreated }}</td>
+          <tbody class="thead-purple">
+            <tr v-bind:key="game.gameId" v-for="game in this.$store.state.games">
+              <td>{{ game.username }}</td>
+              <td>{{ game.gameName }}</td>
+              <td>{{ game.startDate }}</td>
               <td>{{ game.endDate }}</td>
               <td>
-                <router-link :to="{ name: 'join-game', params: {id: game.gameId} }">
-                  <button type="button" class="btn btn-primary btn-rounded btn-sm m-0">Join Game</button>
-                </router-link>
+                  <button 
+                  type="button" 
+                  class="btn btn-primary btn-rounded btn-sm m-0"
+                  @click="$router.push({name: 'mygames', params: {id: game.gameId},})"
+                  >Game Details</button>
               </td>
             </tr>
           </tbody>
-          </table>
+        </table>
+      </div>
+    </div>
+  </div>
+     
 
+<!-- <td>
+                <router-link :to="{ name: 'join-game', params: {id: game.gameId} }">
+                  <button type="button" class="btn btn-primary btn-rounded btn-sm m-0">Join Game</button>
+                </router-link>
+              </td> -->
 
   </div>
 </template>
@@ -49,14 +62,14 @@ export default {
       },
     };
   },
-  created(){
-    this.retrieveGames(this.profile.userId);
-  },
 
   computed: {
     profile(){
       return this.$store.state.user;
     },
+     gameData(){
+      return this.$store.state.game;
+    }
   },
 
   methods:{
@@ -67,8 +80,14 @@ export default {
         this.$store.commit("SET_GAMES_LIST", response.data);
       });
     },
-  }
-  
+    setGameStore(game){
+      this.$store.commit("SET_CURRENT_GAME", game)
+    }
+  },
+ 
+   created(){
+    this.retrieveGames(this.profile.userId);
+  },
   
 };
 </script>
