@@ -15,13 +15,16 @@ namespace Capstone.Models
 
         public string Username { get; set; }
 
-        public Leaderboards(int game_id, int user_id, string stock, int quantity, string username)
+        public decimal Balance { get; set; }
+
+        public Leaderboards(int game_id, int user_id, string stock, int quantity, string username, decimal balance)
         {
             this.GameId = game_id;
             this.UserId = user_id;
             this.Stock = stock;
             this.Quanitity = quantity;
             this.Username = username;
+            this.Balance = balance;
 
             //
         }

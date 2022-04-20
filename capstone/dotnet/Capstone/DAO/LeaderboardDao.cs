@@ -32,16 +32,18 @@ namespace Capstone.DAO
             list.UserId = Convert.ToInt32(reader["user_id"]);
             list.Quanitity = Convert.ToInt32(reader["quantity"]);
             list.GameId = Convert.ToInt32(reader["game_id"]);
-            list.Username = Convert.ToString(reader["username"]); 
+            list.Username = Convert.ToString(reader["username"]);
             return list;
         }
 
         //leaderboards int variable needs to change since we changed to to pass a static game id and not use a variable where the game id would be passed in
         public Dictionary<string, decimal> LeaderboardBalance(int leaderboard)
         {
-            //Dictionary<string, Leaderboards> result = new Dictionary<string, Leaderboards>();
+
             List<Leaderboards> results = new List<Leaderboards>();
-            List<string> listTwo = new List<string>();
+
+            Dictionary<string, decimal> balances = new Dictionary<string, decimal>();
+
             using (SqlConnection conn = new SqlConnection(connectionSting))
             {
                 conn.Open();
@@ -56,37 +58,90 @@ namespace Capstone.DAO
                     results.Add(newLeaderboard);
                 }
 
-                Dictionary<string, decimal> balances = new Dictionary<string, decimal>();
-
-                //foreach (var result in results)
-                //{
-
-                for (int i = 1; i <= results.Count; i++)  {
+          
+                for (int i = 1; i <= results.Count; i++)
+                {
                     decimal playerBalance = 0;
 
-                    string ticker = results[i-1].Stock;
+                    string ticker = results[i - 1].Stock;
                     ClosePrice price = Close.GetPrice(ticker);
                     decimal finalPrice = price.close;
-                    playerBalance = finalPrice * results[i-1].Quanitity;
+                    playerBalance = finalPrice * results[i - 1].Quanitity;
 
                     string key = results[i - 1].Username.ToString();
 
 
-                    balances[key] = playerBalance + finalPrice;
+                    balances[key] = playerBalance;
 
 
+                }
+            }
+                Dictionary<string, decimal> balanceResult = new Dictionary<string, decimal>();
+
+                using (SqlConnection cashBalance = new SqlConnection(connectionSting))
+                {
+                    cashBalance.Open();
+                    SqlCommand cb = new SqlCommand("SELECT B.balance, U.username " +
+                                                   "FROM balance B " +
+                                                   "JOIN users U ON B.user_id = U.user_id " +
+                                                   "WHERE game_id = @game_id ", cashBalance);
+                    cb.Parameters.AddWithValue("@game_id", leaderboard);
+                    SqlDataReader cashBalanceTotal = cb.ExecuteReader();
+                    while (cashBalanceTotal.Read())
+                    {
+                        Leaderboards newLeaderboard = BalanceTradesReader(cashBalanceTotal);
+                        balanceResult[newLeaderboard.Username.ToString()] = newLeaderboard.Balance;
                     }
-                        
-                    //balances.Add(results[i -1].UserId, playerBalance);
-                    //}
-                    //if (results[i - 1].UserId == i)
-                    //{
-                    // value of each row in table
+
+
+                Dictionary<string, decimal> finalFinalBalance = new Dictionary<string, decimal>();
+
+
+                ////for (int i = 1; i <= results.Count; i++)
+
+
+                //foreach (KeyValuePair<string, decimal> bvp in balances)
+                //{
+
+                //    foreach (KeyValuePair<string, decimal> kvp in balanceResult)
+                //    {
+
+                //        if (balances.ContainsKey(kvp.Key))
+                //        {
+
+                //            finalFinalBalance[kvp.Key] = kvp.Value + bvp.Value;
+
+                //        }
+
+                //    }
+                //}
 
                 //}
-                    return balances;
-            }
-        } }
+
+
+                Dictionary<string, decimal> resDict = new Dictionary<string, decimal>();
+                var dict1 = finalFinalBalance;
+                var dict2 = balanceResult;
+                var dict3 = balances;
+
+                resDict = dict1.Concat(dict2)
+                                 .Concat(dict3)
+                                 .GroupBy(x => x.Key)
+                                 .ToDictionary(x => x.Key, x => x.Sum(y => y.Value));
+
+                return resDict;
+                }
+            
+        }
+
+        public Leaderboards BalanceTradesReader(SqlDataReader reader)
+        {
+            Leaderboards list = new Leaderboards();
+            list.Balance = Convert.ToDecimal(reader["balance"]);
+            list.Username = Convert.ToString(reader["username"]);
+            return list;
+        }
     }
+}
 
 
