@@ -65,7 +65,7 @@ namespace Capstone.DAO
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance " +
+                SqlCommand cmd = new SqlCommand("SELECT U.username, G.game_name, G.startdate, G.enddate, B.balance, G.game_id " +
                                                 "FROM GAME G JOIN balance B ON G.game_id = B.game_id " +
                                                 "JOIN users U ON B.user_id = U.user_id " +
                                                 "WHERE B.user_id = @user_id;", conn);
@@ -90,6 +90,7 @@ namespace Capstone.DAO
             g.Balance = Convert.ToDecimal(reader["balance"]);
             g.StartTime = Convert.ToDateTime(reader["startdate"]);
             g.EndDate = Convert.ToDateTime(reader["enddate"]);
+            g.GameId = Convert.ToInt16(reader["game_id"]);
             return g;
         }
 
