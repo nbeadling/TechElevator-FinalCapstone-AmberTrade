@@ -53,7 +53,7 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
+    {//parameterized : userId
       path: '/games',
       name: 'games',
       component: Games,
@@ -61,7 +61,7 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
+    {//parameterized: gameId
       path: '/mygames',
       name: 'mygames',
       component: MyGames,

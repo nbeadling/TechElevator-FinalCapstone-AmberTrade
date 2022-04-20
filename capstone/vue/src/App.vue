@@ -5,20 +5,9 @@
       <img src= './images/amberTradeLogo.png' id="Amber-Logo" />
       <div class="header-right">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
-       <!-- <button @click="$router.push({name: 'about-something', params: { id: 'abc123' },})">Click to Navigate</button> -->
-      
-         
-    <router-link to='games'>Games
-     <select class= "header" name="dropdown-games">  
-        <router-link tag="option" class="header" to="joingame">Join Game</router-link>
-       <option @click="this.$router.push('mygames')">My Games</option> 
-       <option @click="this.$router.push('newgames')">Create a Game</option>
-       <option v-bind:to="{ name: 'joingame' }">Join Game</option>   
-     </select> 
-     </router-link>
-
-        <router-link to= 'stocks'>Stocks</router-link>
-        
+         <!-- <button @click="$router.push({name: 'about-something', params: { id: 'abc123' },})">Click to Navigate</button> -->   
+        <router-link to='games'>Games</router-link>
+        <router-link to= 'stocks'>Stocks</router-link>       
         <router-link to= 'aboutambertrade'>About</router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     

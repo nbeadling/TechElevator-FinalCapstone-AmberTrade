@@ -1,7 +1,7 @@
 <template>
   <div>
  
-        <h1>Here are the details for all your games:</h1>
+        <h1>Here is the list for all your games:</h1>
 
           <table class="table table-hover table-dark" >
           <thead class="thead-purple">
@@ -28,19 +28,15 @@
           </tbody>
           </table>
 
-            <game-detail></game-detail>
-
 
   </div>
 </template>
 
 <script>
-import GameDetail from './GameDetail.vue';
 import ApiService from '../services/ApiService.js';
 
 
 export default {
-  components: { GameDetail },
   name: "game-list",
   
   data(){

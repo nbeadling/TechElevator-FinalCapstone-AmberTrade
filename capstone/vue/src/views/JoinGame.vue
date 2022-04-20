@@ -88,7 +88,6 @@ export default {
     },
 
     retrieveGames(userId) {
-      alert("calling an API service in the joingame view")
       ApiService
       .getUserGames(userId)
       .then(response => {
@@ -97,7 +96,7 @@ export default {
     },
 
   },
-  
+
   created() {
     this.retrieveGames(this.profile.userId);
   }, 

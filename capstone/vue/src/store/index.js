@@ -46,6 +46,10 @@ export default new Vuex.Store({
     },
     stockPrice: {
       close: '',
+    },
+    gameBalance: {
+      gameId: '', 
+
     }
 
   },

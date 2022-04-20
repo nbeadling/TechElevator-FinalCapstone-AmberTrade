@@ -80,7 +80,7 @@ export default {
       ApiService
       .buyStock(stockTransaction)
       .then(response => {
-      if (response.status === 201){
+      if (response.status === 200){
         this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
         confirm(`You have bought ${this.newBuyTransaction.Quantity} shares of ${this.newBuyTransaction.Stock} at $${this.newBuyTransaction.Purchase_Price}`)  
         //popup to inform the gameId
@@ -103,7 +103,7 @@ export default {
       ApiService
       .sellStock(stockTransaction)
       .then(response => {
-      if (response.status === 201){
+      if (response.status === 200){
         this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
         confirm(`You have sold ${this.newSellTransaction.Quantity} shares of ${this.newSellTransaction.Stock} at $${this.newSellTransaction.Purchase_Price}`)  
         //popup to inform the gameId

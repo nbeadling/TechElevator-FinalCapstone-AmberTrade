@@ -19,14 +19,18 @@ export default {
     return axios.get(`/game/${gameId}`)
   },
 
-  //the complete portfolio:  all their stocks in all their games 
+  //#5:the complete portfolio:  all their stocks in all their games 
   getPortfolio(userName) {
     return axios.get(`/trade/seestocks/${userName}`)
   },
 
-  //#2
+  // #8. Getting the leaderboard.  Send gameId.  returns list of everyone's username and total balance.  
+  getLeaderboard(gameId){
+    return axios.get(`/game/leaderboards/${gameId}`)
+  },
+
+  //#2 may not need userId in the URL
   getUserGames(userId) {
-    alert("We're calling the API")
     return axios.get(`/game/viewgame/${userId}`)
   },
 
@@ -44,7 +48,6 @@ addPlayer(userId) {
 
 //3
 createGame(newGame) {
-  alert(newGame)
   return axios.post(`/game/create`, newGame)
 },
 
@@ -52,6 +55,7 @@ buyStock(buyTransaction){
   return axios.post(`/trade/buyastock`, buyTransaction)
 },
 
+//#7
 sellStock(sellTransaction){
   return axios.post(`/trade/sellastock`, sellTransaction)
 }
