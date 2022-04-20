@@ -3,7 +3,7 @@
 
 <div class="card-background text-center" id="game-actions">
        <h1>Hi {{profile.username}}!</h1>
-        <h2>"Hardcode a game name"</h2>
+        <h2>TE Office Stock Challenge</h2>
         
 
     <div class="buy-sell-container"> 
@@ -37,7 +37,7 @@
     </div>
  </div>
      
-  <div class="card-background text-center" id="leaderboard">
+  <div class="leaderboard card-background text-center" id="leaderboard">
       <div class="table-responsive">
         <h1>Leaderboard</h1>
           <table class="table table-hover table-dark">
@@ -48,8 +48,21 @@
               </tr>
             </thead>
             <tbody>
-             <tr v-bind:key="user" v-for="user in this.$store.state.leaderboard">
-               <td></td>
+             <tr>
+               <td>Myron.arcadeGuru88</td>
+               <td>$120,128.63</td>
+             </tr>
+             <tr>
+               <td>Yoav.83002</td>
+               <td>$113,002.83</td>
+             </tr>
+             <tr>
+               <td>Caitie.26.2</td>
+               <td>$107,782.83</td>
+             </tr>
+             <tr>
+               <td>Rich.motorcycleMan</td>
+               <td>$100,784.50</td>
              </tr>
             </tbody>
           </table>
@@ -223,27 +236,28 @@ export default {
 
 
 
-<style>
+<style scoped>
 .content{
   display: flex;
 }
 #leaderboard{
+  color: white;
   }
-  #game-actions{
+#game-actions{
     align-self: flex-start;
   }
-  #form-group{
+#form-group{
     min-width: 100px;
   }
-  .btn{
+.btn{
     color:white;
     background-color: blue;
   }
-   .btn1{
+.btn1{
     color:white;
     background-color: green;
   }
-   .btn2{
+.btn2{
     color:white;
     background-color: red;
   }

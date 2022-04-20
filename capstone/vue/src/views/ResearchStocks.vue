@@ -6,31 +6,7 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
       </div>  
   <h3>The {{searchStock}} price is ${{stock.close}}.</h3>
-    
-<div id="stocks-portfolio-container">
-    <div class="table-responsive">
-      <h3 id="stocks-portfolio-header" class="text-center" >Portfolio</h3>
-      <table class="table table-hover table-dark">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Stock Ticker</th>
-            <th scope="col">Name</th>
-            <th scope="col">Number of Shares</th>
-            <th scope="col">Balance</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-          <tbody>
-            <tr v-bind:key="stock" v-for="stock in this.$store.state.holdings">
-              <td>{{ game.username }}</td>
-              <td>{{ game.gameName }}</td>
-              <td>{{ game.startDate }}</td>
-              <td>{{ game.endDate }}</td>
-            </tr>
-          </tbody>
-      </table>
-    </div>
-          </div>
+
 
 
 </div>

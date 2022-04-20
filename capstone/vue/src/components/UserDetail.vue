@@ -2,7 +2,7 @@
   <div>
  
         <h1>WELCOME BACK {{profile.username}}</h1>
-      <h3> Below are details for your profile</h3>
+      <h2> Below are details for your profile</h2>
           <ul>
               <li>Your username is: {{profile.username}}</li>
               <li>Your access level is: {{profile.role}}</li>
@@ -35,3 +35,8 @@ export default {
   
 };
 </script>
+
+<style scoped>
+
+
+</style>
