@@ -3,8 +3,8 @@
 
 <div class="card-background text-center" id="game-actions">
        <h1>Hi {{profile.username}}!</h1>
-        <h2>"{{game.gameName}}"</h2>
-        <p>game description</p>
+        <h2>"Hardcode a game name"</h2>
+        
 
     <div class="buy-sell-container"> 
         <div class= "buy-stock-form">
@@ -192,6 +192,21 @@ export default {
      
 
     },
+  retrieveStock(searchStock){
+    ApiService
+    .getStock(searchStock)
+    .then(response => {
+      this.$store.commit("SET_CURRENT_STOCK", response.data);
+    })
+    .catch(error => {
+          if (error.response && error.response.status === 404) {
+            alert(
+              "Stock not available. This stock may not exist."
+            );
+            this.$router.push("/");
+          }
+        });
+    },
 
   },
 
@@ -209,25 +224,16 @@ export default {
 
 
 <style>
-
+.content{
+  display: flex;
+}
 #leaderboard{
-    margin: 0;
-    margin-left: 80px;
-    min-width: 400px;
-    flex-grow: 1;
   }
   #game-actions{
-     margin: 0;
-    margin-left: 80px;
-    min-width: 400px;
-    flex-grow: 1;
+    align-self: flex-start;
   }
   #form-group{
-        margin: 0;
-    margin-left: 80px;
-    min-width: 400px;
-    flex-grow: 1;
-    background-color: indianred;
+    min-width: 100px;
   }
   .btn{
     color:white;

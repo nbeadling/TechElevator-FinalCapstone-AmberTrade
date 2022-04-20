@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-
+    
     <nav class="header">
       <img src= './images/amberTradeLogo.png' id="Amber-Logo" />
+    
       <div class="header-right">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
          <!-- <button @click="$router.push({name: 'about-something', params: { id: 'abc123' },})">Click to Navigate</button> -->   
@@ -91,7 +92,10 @@ body {
 /*alter the logo picture */
 #Amber-Logo{
   width: 100px;
+  border: 2px solid;
+  border-color: #ddd;
 }
+
 #footer-container{
     display: flex;
     flex-direction: row;
@@ -100,7 +104,7 @@ body {
     width: 100%;
     height: 90px;
     background-color: purple;
-    position: relative;
+    position: fixed;
     bottom: 0;
 }
 #footer-body{
