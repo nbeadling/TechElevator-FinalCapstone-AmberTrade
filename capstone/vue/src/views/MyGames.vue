@@ -183,15 +183,13 @@ export default {
     },
 //need to write the get leaderboard methods
   getGameLeaderboard(gameId) {
-    alert("method calling for API")
       ApiService
       .getLeaderboard(gameId)
       .then(response => {
         this.$store.commit("SET_CURRENT_LEADERBOARD", response.data);
       });
       console.log(this.$store.state.leaderboard)
-      alert(this.$store.state.leaderboard.andrew)
-      alert(this.$store.state.leaderboard.user)
+     
 
     },
 

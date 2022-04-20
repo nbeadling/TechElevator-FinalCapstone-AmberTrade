@@ -5,7 +5,7 @@
     <div id="joingame" class="text-center">
       <div class="table-responsive">
         <h1>See your games below:</h1>
-        <table class="table table-hover table-dark" v-if="game">
+        <table class="table table-hover table-dark leaderboard" v-if="game">
           <thead class="thead-purple">
             <tr>
               <th scope="col">Game Name</th>
@@ -106,4 +106,10 @@ export default {
   background-color: purple;
   color: black;
 }
+#leaderboard{
+    margin: 0;
+    margin-left: 80px;
+    min-width: 1rem;
+    flex-grow: 1;
+  }
 </style>
