@@ -38,7 +38,7 @@ const router = new Router({
     },
    
     {
-      path: '/stocks',
+      path: '/stocks/:id',
       name: 'researchstockview',
       component: ResearchStock,
       meta: {

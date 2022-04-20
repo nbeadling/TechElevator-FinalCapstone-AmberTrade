@@ -1,37 +1,40 @@
 <template>
   <div class="content">
-   <router-link to='newgame'>Create a new Game</router-link>  <br>
-  <router-link to='joingame'>Join Game</router-link>  
 
 <div class="card-background text-center" id="game-actions">
        <h1>Hi {{profile.username}}!</h1>
         <h2>"{{game.gameName}}"</h2>
         <p>game description</p>
-        <div class="buy-sell-container"> 
-          <div class= "buy-stock-form">
+
+    <div class="buy-sell-container"> 
+        <div class= "buy-stock-form">
               <div class="buy-inputs">
               <input type="text" id="buy-stock-ticker" placeholder="Stock Ticker" v-model="buyStockObject.stockTicker" autofocus /> <br>
-              <label for="quanitity-buy">Number of Stocks:</label>   <br>
+              <label for="quantity-buy">Number of Stocks:</label>   <br>
               <input type="number" id="quantity-buy" v-model="buyStockObject.quantity" autofocus />
               </div>
               <div class="button-group">
-              <button type="button" class="btn1 btn-primary btn-rounded btn-block buysell-button"
+              <button type="button" 
+              class="btn1 btn-primary btn-rounded btn-block buysell-button"
+              v-on:click="buyStock(buyStockObject)"
               >Buy Stocks</button>
               </div>
-          </div>
+        </div>
           
-            <div class="sell-stock-form">
+        <div class="sell-stock-form">
               <div class="sell-inputs">
               <input type="text" id="sell-stock-ticker" placeholder="Stock Ticker" v-model="sellStockObject.stockTicker" autofocus /> <br>
-              <label for="quanitity-buy">Number of Stocks:</label>   <br>
+              <label for="quantity-buy">Number of Stocks:</label>   <br>
               <input type="number" id="quantity-sell" v-model="sellStockObject.quantity" autofocus />
               </div>
               <div class="button-group">
-                <button type="button" class="btn2 btn-danger btn-rounded btn-block buysell-button"
+                <button type="button" 
+                class="btn2 btn-danger btn-rounded btn-block buysell-button"
+                v-on:click="sellStock(sellStockObject)"
                 >Sell Stocks</button>
             </div>
-           </div>  
-        </div>
+        </div>  
+    </div>
  </div>
      
   <div class="card-background text-center" id="leaderboard">
@@ -44,9 +47,15 @@
                 <th scope="col">Portfolio Total</th>
               </tr>
             </thead>
+            <tbody>
+             <tr v-bind:key="user" v-for="user in this.$store.state.leaderboard">
+               <td></td>
+             </tr>
+            </tbody>
           </table>
       </div>
   </div>
+
       <div class="form-group" >
             <label for="name" class="sr-only">Player Name</label>
             <input
@@ -62,7 +71,7 @@
               class="btn btn-secondary btn-rounded"
               v-on:click="addPlayerToGame(invitePlayer)"
             >Invite Player</button>
-          </div>
+       </div>
    
 
   </div>
@@ -174,19 +183,23 @@ export default {
     },
 //need to write the get leaderboard methods
   getGameLeaderboard(gameId) {
+    alert("method calling for API")
       ApiService
       .getLeaderboard(gameId)
       .then(response => {
         this.$store.commit("SET_CURRENT_LEADERBOARD", response.data);
       });
+      console.log(this.$store.state.leaderboard)
+      alert(this.$store.state.leaderboard.andrew)
+      alert(this.$store.state.leaderboard.user)
+
     },
 
-
-
   },
+
   created() {
-    this.getGameDetail(this.$route.params.game.gameId);
-    this.getGameLeaderboard(this.$route.params.game.gameId);
+    this.getGameLeaderboard(this.$route.params.id);  
+    this.getGameDetail(this.$route.params.id);
     
   }, 
   

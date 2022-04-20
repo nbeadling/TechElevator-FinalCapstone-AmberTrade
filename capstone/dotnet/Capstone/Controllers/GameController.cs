@@ -42,7 +42,7 @@ namespace Capstone.Controllers
             return listGames;
         }
 
-        [HttpPost("invte/{userId}")]
+        [HttpPost("invite/{userId}")]
         public ActionResult<int> InvitePlayerGame(int userId, CreateGame gameId)
         {
             int added = gameDAO.InvitePlayer(userId, gameId);

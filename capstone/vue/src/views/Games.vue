@@ -2,7 +2,8 @@
 
  
   <div class="content">
-   <router-link to='newgame'>Create a new Game</router-link>  <br>
+    <router-link v-bind:to="{name: 'newgame'}">Create a New Game</router-link>
+
     <game-list></game-list>
  
      

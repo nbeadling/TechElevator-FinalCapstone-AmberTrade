@@ -6,9 +6,10 @@
       <div class="header-right">
         <router-link v-bind:to="{ name: 'home' }">Home</router-link>
          <!-- <button @click="$router.push({name: 'about-something', params: { id: 'abc123' },})">Click to Navigate</button> -->   
-        <button @click="$router.push({name: 'games', params: {id: $store.state.user.userId},})">Games</button>
-        <router-link to= 'stocks'>Stocks</router-link>       
-        <router-link to= 'aboutambertrade'>About</router-link>
+        <router-link v-bind:to="{name: 'games', params: {id: $store.state.user.userId},}">Games</router-link>
+
+        <router-link v-bind:to="{name: 'researchstockview', params: {id: $store.state.user.userId},}">Stocks</router-link>
+        <router-link v-bind:to="{name: 'AboutAmberTrade'}">About</router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     
      </div>

@@ -1,15 +1,37 @@
 <template>
   <div class="content">
-    <h1>Here is where stock info should be</h1>
+  <h1>Here is where stock info should be</h1>
     
-    <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
+  <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
       <div class="form-group">          
       <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
       </div>  
-
-      <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
+  <h2>The {{searchStock}} price is ${{stock.close}}.</h2>
     
-
+<div id="stocks-portfolio-container">
+    <div class="table-responsive">
+      <h3 id="stocks-portfolio-header" class="text-center" >Portfolio</h3>
+      <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Stock Ticker</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number of Shares</th>
+            <th scope="col">Balance</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr v-bind:key="stock" v-for="stock in this.$store.state.holdings">
+              <td>{{ game.username }}</td>
+              <td>{{ game.gameName }}</td>
+              <td>{{ game.startDate }}</td>
+              <td>{{ game.endDate }}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+          </div>
 
 
 </div>
@@ -49,6 +71,9 @@ export default {
     stock(){
       return this.$store.state.stockPrice;
     },
+    portfolio(){
+      return this.$store.state.holdings;
+    }
     
   },
   methods: {
@@ -74,56 +99,12 @@ export default {
             this.$router.push("/");
           }
         });
-
-    },
-  buyStock(stockTransaction){
-      ApiService
-      .buyStock(stockTransaction)
-      .then(response => {
-      if (response.status === 200){
-        this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
-        confirm(`You have bought ${this.newBuyTransaction.Quantity} shares of ${this.newBuyTransaction.Stock} at $${this.newBuyTransaction.Purchase_Price}`)  
-        //popup to inform the gameId
-      }
-      })
-     .catch(error => {
-        this.handleErrorResponse(error, "adding");
-      })
-
-      .catch(error => {
-          if (error.response && error.response.status === 404) {
-            alert(
-              "Sorry, something went wrong. This transaction did not occur. Please try again."
-            );
-          }
-        });
     },
  
-
-  sellStock(stockTransaction){
-      ApiService
-      .sellStock(stockTransaction)
-      .then(response => {
-      if (response.status === 200){
-        this.$store.commit("SET_CURRENT_TRANSACTION", response.data);
-        confirm(`You have sold ${this.newSellTransaction.Quantity} shares of ${this.newSellTransaction.Stock} at $${this.newSellTransaction.Purchase_Price}`)  
-        //popup to inform the gameId
-      }
-      })
-     .catch(error => {
-        this.handleErrorResponse(error, "adding");
-      })
-
-      .catch(error => {
-          if (error.response && error.response.status === 404) {
-            alert(
-              "Sorry, something went wrong. This transaction did not occur. Please try again."
-            );
-          }
-        });
-    },
-
-  }
+  },
+  created(){
+    this.getUserPortfolio(this.profile.userId);
+  }  
 };
 
 
@@ -171,7 +152,10 @@ tr {
   width: 40%;
   font-size: 55%;
 }
-
+#stocks-portfolio-container {
+  margin-top: 5%;
+  background-color: rgb(177, 176, 222);
+}
 
 </style>
   

@@ -34,13 +34,6 @@
       </div>
     </div>
   </div>
-     
-
-<!-- <td>
-                <router-link :to="{ name: 'join-game', params: {id: game.gameId} }">
-                  <button type="button" class="btn btn-primary btn-rounded btn-sm m-0">Join Game</button>
-                </router-link>
-              </td> -->
 
   </div>
 </template>

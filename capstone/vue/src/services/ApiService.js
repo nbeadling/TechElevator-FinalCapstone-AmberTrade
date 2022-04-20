@@ -26,6 +26,7 @@ export default {
 
   // #8. Getting the leaderboard.  Send gameId.  returns list of everyone's username and total balance.  
   getLeaderboard(gameId){
+    alert("API get request")
     return axios.get(`/game/leaderboards/${gameId}`)
   },
 
