@@ -198,14 +198,19 @@ INSERT INTO holdings(user, game_id) VALUES ('testing')
 
 SELECT game_id FROM Game WHERE user_id = 3
 
-insert holdings (stock, balance,user_id, game_id)OUTPUT INSERTED.game_idvalues ('', 100000, 3, 117);
+insert holdings (stock, balance,user_id, game_id)
+OUTPUT INSERTED.game_id
+values ('', 100000, 3, 117);
 
 
-insert game(game_name)OUTPUT INSERTED.game_idvalues ( 'Demo3');
+insert game(game_name)
+OUTPUT INSERTED.game_id
+values ( 'Demo3');
 
 SELECT game_id FROM Game WHERE game_name = 'Demo'
 
-insert holdings (stock, balance,user_id, game_id)values ('', 100000, 3, 101);
+insert holdings (stock, balance,user_id, game_id)
+values ('', 100000, 3, 101);
 SELECT game_id FROM Game WHERE game_name = 'Demo'
 
 

@@ -148,6 +148,8 @@ namespace Capstone.DAO
                 return quantity; 
             }
         }
+
+
         public decimal SellAStock(SellAStock sellAStockDao)
         {
             decimal result = 0.00M;

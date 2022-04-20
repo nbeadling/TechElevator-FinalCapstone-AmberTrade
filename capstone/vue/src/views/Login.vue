@@ -2,7 +2,7 @@
   <div id="login" class="text-center">
     
     <form class="form-signin" @submit.prevent="login">
-      <h1 type="button" class="title h3 mb-3 font-weight-normal">Log In</h1>
+      <h1  class="title h3 mb-3 font-weight-normal">Login</h1>
       <div
         class="alert alert-danger"
         role="alert"
@@ -34,7 +34,8 @@
       />
       <button type="submit" class="submit">Log in</button>
       <router-link :to="{ name: 'register' }">
-      <button type="submit" class="submit1">Register</button>
+        <p></p>
+      <button type="submit" class="submit">Register</button>
 
         </router-link>
       
@@ -81,7 +82,9 @@ export default {
 </script>
 
 <style >
-
+h3{
+  color: white;
+}
 body{
   background-image: url("../images/pexels-en.jpg");
   background-position: center;
@@ -144,6 +147,7 @@ border: 0px;
 outline: 0;
 border-radius: 30px;
 align-content: center;
+
 }
 .submit1{
 width: 85%;
@@ -160,7 +164,7 @@ align-content: center;
 
 }
 .title{
-width: 25%;
+width: 53%;
   padding: 10px 30px;
   display: block;
   margin: auto;
@@ -168,16 +172,6 @@ width: 25%;
   border: 0px;
 outline: 0px;
 border-radius: 30px;
-}
-.titleR{
-width: 85%;
-  padding: 10px 30px;
-  display: block;
-  margin:auto;
-  background:linear-gradient(to right, #59c3c3, #6969b3 );
-  border: 0px;
-outline: 0px;
-border-radius: 90px;
 }
 
 </style>

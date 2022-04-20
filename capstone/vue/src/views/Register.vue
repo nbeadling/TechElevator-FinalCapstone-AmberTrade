@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
-      <h1 type ="button" class="titleR h3 mb-3 font-weight-normal">Registration</h1>
+      <h3 type ="button" class="title h3 mb-3 font-weight-normal">Registration</h3>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -35,9 +35,10 @@
       <button class="submit btn btn-lg btn-primary btn-block" type="submit" >
         Create Account
       </button>
+      <p></p>
       <router-link :to="{ name: 'login' }">
         
-          <button class="submit1 btn btn-lg btn-primary btn-block" type="submit1" >
+          <button class="submit btn btn-lg btn-primary btn-block" type="submit1" >
         Have an account?
       </button>
 

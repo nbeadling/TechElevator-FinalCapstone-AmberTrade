@@ -243,4 +243,6 @@ SELECT * FROM holdings
 SELECT * FROM balance 
 
 
-insert Game (game_name, balance,user_id, game_id)OUTPUT INSERTED.game_idvalues ('', 100000, 3, 117);
+insert Game (game_name, balance,user_id, game_id)
+OUTPUT INSERTED.game_id
+values ('', 100000, 3, 117);
