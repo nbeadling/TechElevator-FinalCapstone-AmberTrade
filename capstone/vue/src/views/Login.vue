@@ -2,7 +2,7 @@
   <div id="login" class="text-center">
     
     <form class="form-signin" @submit.prevent="login">
-      <h1  class="title h3 mb-3 font-weight-normal">Login</h1>
+      <h3  class="title h3 mb-3 font-weight-normal">Login</h3>
       <div
         class="alert alert-danger"
         role="alert"
@@ -110,6 +110,7 @@ body{
 .form-signin{
   text-align: center;
   border: 0px;
+  color: white;
 
 }
 .sr-only{
@@ -147,6 +148,7 @@ border: 0px;
 outline: 0;
 border-radius: 30px;
 align-content: center;
+color: white;
 
 }
 .submit1{
@@ -173,6 +175,12 @@ width: 53%;
 outline: 0px;
 border-radius: 30px;
 }
-
+.form-register{
+  color: white;
+}
+#body {
+  align-content: center;
+  
+}
 </style>
 

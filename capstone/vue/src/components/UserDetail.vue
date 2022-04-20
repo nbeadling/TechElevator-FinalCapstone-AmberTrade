@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="body">
  
-        <h1>WELCOME BACK {{profile.username}}</h1>
-      <h2> Below are details for your profile</h2>
-          <ul>
-              <li>Your username is: {{profile.username}}</li>
+        <h1>WELCOME BACK {{profile.username}}!</h1>
+          <h2> Below are details for your profile</h2>
+            <ul>
+              <li>username: {{profile.username}}</li>
               <li>Your access level is: {{profile.role}}</li>
               <li>Your userId is: {{profile.userId}}</li>
              
@@ -37,6 +37,8 @@ export default {
 </script>
 
 <style scoped>
-
+#body {
+  align-content: center;
+}
 
 </style>
