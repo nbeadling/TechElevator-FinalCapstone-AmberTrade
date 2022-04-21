@@ -10,7 +10,9 @@
         <div class= "buy-stock-form">
           <h4> Get a stock quote here:</h4>
                 <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
+                <button class="btn btn-lg btn-primary btn-block" type="submit" @click="retrieveStock(searchStock)">Find Stock Price</button>  
                <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
+               
 
 
               <div class="buy-inputs">
@@ -75,10 +77,8 @@
              </tr>
             </tbody>
           </table>
-      </div>
-  </div>
-
-      <div class="form-group" >
+          <p></p>
+          <div class="form-group" >
             <label for="name" class="sr-only">Player Name</label>
             <input
               type="text"
@@ -91,9 +91,13 @@
             <button
               type="button"
               class="btn btn-secondary btn-rounded"
-              v-on:click="clearForms"
+              v-on:click="!togglePlayer"
             >Invite Player</button>
        </div>
+      </div>
+  </div>
+
+      
    
 
   </div>
@@ -263,12 +267,15 @@ export default {
 <style scoped>
 .content{
   display: flex;
+    background:linear-gradient(to right, #96d9d9, #6969b3 );
+
 }
 #leaderboard{
-  color: white;
+  color: black;
   }
 #game-actions{
     align-self: flex-start;
+    overflow: auto;
   }
 #form-group{
     min-width: 100px;
@@ -284,6 +291,9 @@ export default {
 .btn2{
     color:white;
     background-color: red;
+  }
+  ::placeholder{
+    color: rgba(0, 0, 0, 0.63);
   }
 
 

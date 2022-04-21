@@ -5,7 +5,9 @@
      <h4>Get a stock quote here:</h4>
       <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
         <div class="form-group">          
-           <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
+           <button class="btn btn-lg btn-primary btn-block" type="submit" 
+           @click="retrieveStock(searchStock)"
+           >Find Stock Price</button>        
        </div>  
       <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
     </div>
@@ -90,7 +92,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 
 /* .table{
   background-color: white;
@@ -102,6 +104,9 @@ tr {
   display: table-row;
   vertical-align: middle;
 } */
+.content{
+
+}
 .research-background {
   background-color: blue;
   padding-top: 3%;

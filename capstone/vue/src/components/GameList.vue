@@ -9,7 +9,6 @@
           <thead class="thead-purple">
             <tr>
               <th scope="col">Game Name</th>
-              <th scope="col">Date Created</th>
               <th scope="col">Game Ends</th>
               <th scope="col"></th>
             </tr>
@@ -17,9 +16,7 @@
           </thead>
           <tbody class="thead-purple">
             <tr v-bind:key="game.gameId" v-for="game in this.$store.state.games">
-              <td>{{ game.username }}</td>
               <td>{{ game.gameName }}</td>
-              <td>{{ game.startDate }}</td>
               <td>{{ game.endDate }}</td>
               <td>
                   <button 
