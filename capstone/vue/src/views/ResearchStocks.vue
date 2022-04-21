@@ -1,12 +1,14 @@
 <template>
   <div class="content">
-  <h2>Get a stock quote here:</h2>
-  <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
-      <div class="form-group">          
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
-      </div>  
-  <h3>The {{searchStock}} price is ${{stock.close}}.</h3>
 
+    <div>
+     <h4>Get a stock quote here:</h4>
+      <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
+        <div class="form-group">          
+           <button class="btn btn-lg btn-primary btn-block" type="submit">Find Stock Price</button>        
+       </div>  
+      <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
+    </div>
 
 
 </div>

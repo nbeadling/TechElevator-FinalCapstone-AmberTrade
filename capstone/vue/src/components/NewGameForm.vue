@@ -99,14 +99,13 @@ export default {
    
    methods: {
    createNewGame(newGame){
-     alert(newGame.gameName);
     newGame.userId= this.profile.userId
     ApiService
     .createGame(newGame)
     .then(response => {
       if (response.status === 200){
         this.$store.commit("SET_CURRENT_GAME", response.data);
-        confirm(`You have created a game with gameId: ${this.createdGame.gameId}`)  //popup to inform the gameId
+        confirm(`You have created a new game!`)  //popup to inform the gameId
         this.createdGame()
       }
       })

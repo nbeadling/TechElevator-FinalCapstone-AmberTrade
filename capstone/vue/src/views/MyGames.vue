@@ -4,10 +4,15 @@
 <div class="card-background text-center" id="game-actions">
        <h1>Hi {{profile.username}}!</h1>
         <h2>TE Office Stock Challenge</h2>
-        
 
     <div class="buy-sell-container"> 
+      
         <div class= "buy-stock-form">
+          <h4> Get a stock quote here:</h4>
+                <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
+               <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
+
+
               <div class="buy-inputs">
               <input type="text" id="buy-stock-ticker" placeholder="Stock Ticker" v-model="buyStockObject.stockTicker" autofocus /> <br>
               <label for="quantity-buy">Number of Stocks:</label>   <br>
@@ -16,7 +21,7 @@
               <div class="button-group">
               <button type="button" 
               class="btn1 btn-primary btn-rounded btn-block buysell-button"
-              v-on:click="buyStock(buyStockObject)"
+              v-on:click="clearForms"
               >Buy Stocks</button>
               </div>
         </div>
@@ -30,7 +35,7 @@
               <div class="button-group">
                 <button type="button" 
                 class="btn2 btn-danger btn-rounded btn-block buysell-button"
-                v-on:click="sellStock(sellStockObject)"
+                v-on:click="clearForms"
                 >Sell Stocks</button>
             </div>
         </div>  
@@ -64,6 +69,10 @@
                <td>Rich.motorcycleMan</td>
                <td>$100,784.50</td>
              </tr>
+             <tr>
+               <td>andrew</td>
+               <td>$100,000.00</td>
+             </tr>
             </tbody>
           </table>
       </div>
@@ -82,7 +91,7 @@
             <button
               type="button"
               class="btn btn-secondary btn-rounded"
-              v-on:click="addPlayerToGame(invitePlayer)"
+              v-on:click="clearForms"
             >Invite Player</button>
        </div>
    
@@ -99,6 +108,7 @@ export default {
     return {
       isOpen: false,
       invitePlayer: '', 
+      searchStock: '',
       buyStockObject: {
         stockTicker: '',
         quantity: '', 
@@ -118,9 +128,23 @@ export default {
      game(){
       return this.$store.state.game;
     },
+     stock(){
+      return this.$store.state.stockPrice;
+    },
   },
 
   methods:{
+  clearForms(){
+    this.searchStock= '',
+    this.$store.state.stockPrice= '',
+    this.buyStockObject.stockTicker= '',
+    this.buyStockObject.quantity= '', 
+    this.sellStockObject.stockTicker= '',
+    this.sellStockObject.quantity= '', 
+    this.invitePlayer= ''
+  },
+
+
   addPlayerToGame(addNewPlayer){
     ApiService
     .addPlayer(addNewPlayer)
