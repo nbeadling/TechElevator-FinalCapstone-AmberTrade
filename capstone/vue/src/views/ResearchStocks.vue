@@ -2,7 +2,7 @@
   <div class="content">
 
     <div class="research">
-     <h4>Get a stock quote here:</h4>
+     <h2>Get a stock quote here:</h2>
       <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
         <div class="form-group">          
            <button class="btn btn-lg btn-primary btn-block" type="submit" 
@@ -11,7 +11,7 @@
        </div>  
       <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
     </div>
-<div class="leaderboard card-background text-center" id="leaderboard">
+    <div class="leaderboard card-background text-center" id="leaderboard">
       <div class="table-responsive">
         <h1>Portfolio</h1>
           <table class="table table-hover table-dark">
@@ -152,11 +152,24 @@ tr {
   display: table-row;
   vertical-align: middle;
 } */
-.content{
-
+.btn{
+  flex-grow: 4;
 }
-.reasearch{
-  background: grey;
+.research{
+  display: flexbox;
+  word-wrap: break-word;
+  align-content: stretch;
+  color: red;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: white;
+  margin-left: 30%;
+  margin-right: 30%;
+  padding-left: 10%;
+  margin-bottom: 20px;
+  }
+.leaderboard{
+  display: block;
 }
 .research-background {
   background-color: blue;
