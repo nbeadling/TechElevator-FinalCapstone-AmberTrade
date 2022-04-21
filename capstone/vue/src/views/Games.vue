@@ -2,16 +2,14 @@
 
  
   <div class="content">
-  <game-list>  
-
-  </game-list>
+  <div><game-list></game-list> </div>
 <p></p>
+<div class="create-button">
  <router-link v-bind:to="{name: 'newgame'}"> <button> 
    Create a New Game</button></router-link>
+</div>
+ 
   </div>
-
-
-
 </template>
 <script>
 import GameList from '../components/GameList.vue';
@@ -39,12 +37,16 @@ export default {
 
 <style scoped>
 .content{
-  display: grid;
+  display: flex;
+  justify-content: center;
   row-gap: 10px;
   column-gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+}
+.create-button{
+  display:block;
 }
 #leaderboard{
   display: flex;
