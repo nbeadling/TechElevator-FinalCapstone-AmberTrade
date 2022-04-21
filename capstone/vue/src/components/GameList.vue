@@ -18,10 +18,11 @@
             <tr v-bind:key="game.gameId" v-for="game in this.$store.state.games">
               <td>{{ game.gameName }}</td>
               <td>{{ game.endDate }}</td>
-              <td>
+              
+              <td class="detail-button">
                   <button 
                   type="button" 
-                  class="btn btn-primary btn-rounded btn-sm m-0"
+                  class="btn btn-primary btn-rounded btn-sm m-0 button"
                   @click="$router.push({name: 'mygames', params: {id: game.gameId},})"
                   >Game Details</button>
               </td>
@@ -84,6 +85,14 @@ export default {
 </script>
 
 <style scoped>
+td{
+  height: 30px;
+}
+.button{
+  margin-top: 25px;
+  align-items: center;
+  align-content: center;
+}
 #thead-purple {
  background: orange;
   background-size: cover;
@@ -92,14 +101,14 @@ export default {
   overflow: auto;
   width: 100%;
   height: 100%;
-  padding-top: 60px;
+  padding-top: 30px;
   padding-bottom: 220px;
 }
 #thead-purple{
   width: 75%;
-  padding: 25px;
+  padding: 15px;
   margin: auto;
-  border-radius: 25px;
+  border-radius: 15px;
   border: 2px solid rgba(0, 0, 0, 0.05);
   background-color: purple;
   color: black;

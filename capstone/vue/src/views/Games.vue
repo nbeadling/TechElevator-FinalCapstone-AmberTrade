@@ -2,9 +2,9 @@
 
  
   <div class="content">
-  <div><game-list></game-list> </div>
+  <div><game-list></game-list> 
 <p></p>
-<div class="create-button">
+
  <router-link v-bind:to="{name: 'newgame'}"> <button> 
    Create a New Game</button></router-link>
 </div>

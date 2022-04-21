@@ -267,15 +267,18 @@ export default {
 <style scoped>
 .content{
   display: flex;
-    background:linear-gradient(to right, #96d9d9, #6969b3 );
+    background: transparent;
 
 }
 #leaderboard{
   color: black;
+  margin-left: 5%;
+  
   }
 #game-actions{
     align-self: flex-start;
     overflow: auto;
+    margin-right: 0%;
   }
 #form-group{
     min-width: 100px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="contentHome">
     
 
   <user-detail></user-detail>
@@ -19,10 +19,13 @@ export default {
 
 
 
-<style>
+<style >
 
-.content{
+.contentHome{
   align-content: center;
+  align-items: center;
+  padding: auto;
+  margin-left: 30%;
 }
 
 

@@ -144,11 +144,12 @@ label {
 }
 #creategame {
   width: 25%;
-  padding: 25px;
+  padding: 10px;
+  padding-left: 3%;
   margin: auto;
   border-radius: 25px;
   border: 2px solid rgba(0, 0, 0, 0.05);
-  background-color: purple;
+  background: #59c3c3;
   color: white;
 }
 </style>
