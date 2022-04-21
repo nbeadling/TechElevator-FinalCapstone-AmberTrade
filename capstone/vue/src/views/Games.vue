@@ -2,13 +2,14 @@
 
  
   <div class="content">
-    
+  <game-list>  
 
-  <game-list></game-list>
- <router-link v-bind:to="{name: 'newgame'}">Create a New Game</router-link>
-     
-
+  </game-list>
+<p></p>
+ <router-link v-bind:to="{name: 'newgame'}"> <button> 
+   Create a New Game</button></router-link>
   </div>
+
 
 
 </template>
@@ -36,7 +37,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 .content{
   display: grid;
   row-gap: 10px;

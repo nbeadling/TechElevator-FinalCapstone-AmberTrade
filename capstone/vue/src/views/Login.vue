@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped >
 h3{
   color: white;
 }
@@ -111,7 +111,7 @@ body{
   text-align: center;
   border: 0px;
   color: white;
-
+  padding-top: 40px;
 }
 .sr-only{
   text-align: center;
@@ -177,6 +177,7 @@ border-radius: 30px;
 }
 .form-register{
   color: white;
+ padding-top: 40px;
 }
 #body {
   align-content: center;

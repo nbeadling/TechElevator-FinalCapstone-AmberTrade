@@ -107,7 +107,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 
 
 #joingame-container {

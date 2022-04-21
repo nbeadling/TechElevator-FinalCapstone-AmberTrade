@@ -44,14 +44,13 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,600;1,600&display=swap');
 * {box-sizing: border-box;}
 
-body { 
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  /*background-color: #f1f1f1;*/
+    background:linear-gradient(to right, #59c3c3, #6969b3 );
+
   padding: 20px 10px;
   display: flex;
   align-items: center;
@@ -91,9 +90,7 @@ body {
 
 /*alter the logo picture */
 #Amber-Logo{
-  width: 100px;
-  border: 2px solid;
-  border-color: #ddd;
+  width: 135px;
 }
 
 #footer-container{
@@ -103,7 +100,7 @@ body {
     flex-basis: auto;
     width: 100%;
     height: 90px;
-    background-color: purple;
+    background: linear-gradient(to right, #59c3c3, #6969b3 );
     position: fixed;
     bottom: 0;
 }

@@ -29,6 +29,7 @@
                   >Game Details</button>
               </td>
             </tr>
+            <tr></tr>
           </tbody>
         </table>
       </div>

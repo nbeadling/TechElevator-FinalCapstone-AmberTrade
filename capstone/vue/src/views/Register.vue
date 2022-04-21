@@ -99,6 +99,106 @@ export default {
 </script>
 
 <style>
+h3{
+  color: white;
+}
+body{
+  background-image: url("../images/pexels-en.jpg");
+  background-position: center;
+  background-size: cover;
+  position: fill;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat ;
+  
+  }
 
+.text-center{
+  text-align: center;
+  width: 380px;
+  height: 480px;
+  position: relative;
+  margin: 6% auto;
+  background: #fff;
+  padding: 5px;
 
+ }  
+
+.form-signin{
+  text-align: center;
+  border: 0px;
+  color: white;
+  padding-top: 40px;
+
+}
+.sr-only{
+  text-align: center;
+  display: block;
+}
+button{
+display: block;
+margin: auto;
+padding: 5px;
+margin-bottom: 30px;
+}
+
+.form-control{
+
+  margin: 20px;
+  width: 55%;
+  text-align: center;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 1px solid #999;
+  outline: none ;
+  background: transparent;
+}
+
+.submit{
+width: 50%;
+padding: 10px 30px;
+cursor: pointer;
+display: block;
+margin: auto;
+background:linear-gradient(to right, #59c3c3, #6969b3 );
+border: 0px;
+outline: 0;
+border-radius: 30px;
+align-content: center;
+color: white;
+
+}
+.submit1{
+width: 85%;
+padding: 10px 30px;
+cursor: pointer;
+display: block;
+margin: 30px;
+background:linear-gradient(to right, #59c3c3, #6969b3 );
+border: 0px;
+outline: 0;
+border-radius: 30px;
+align-content: center;
+ 
+
+}
+.title{
+width: 53%;
+  padding: 10px 30px;
+  display: block;
+  margin: auto;
+  background:linear-gradient(to right, #59c3c3, #6969b3 );
+  border: 0px;
+outline: 0px;
+border-radius: 30px;
+}
+.form-register{
+  color: white;
+  padding-top: 40px;
+}
+#body {
+  align-content: center;
+  
+}
 </style>

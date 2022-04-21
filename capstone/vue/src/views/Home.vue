@@ -21,7 +21,9 @@ export default {
 
 <style>
 
-
+.content{
+  align-content: center;
+}
 
 
 

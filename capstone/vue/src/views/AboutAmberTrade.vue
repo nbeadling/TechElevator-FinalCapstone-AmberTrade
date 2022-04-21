@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .description-background {
-  background-color: rgb(150, 108, 150);
+  background-color: transparent;
   padding-top: 5%;
   position: fixed;
   overflow: auto;
@@ -39,7 +39,7 @@ export default {
   border: 2px solid black;
   border-radius: 25px;
   background-image: none;
-  background-color: blue;
+  background: linear-gradient(to right, #59c3c3, #6969b3 );
   color: white;
   margin: auto;
   padding: 25px;

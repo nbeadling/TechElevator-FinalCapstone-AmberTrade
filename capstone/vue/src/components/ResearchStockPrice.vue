@@ -29,7 +29,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .experiment{
   background-color: papayawhip;
   color: black;

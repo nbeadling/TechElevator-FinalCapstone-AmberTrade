@@ -1,6 +1,6 @@
 <template>
+
   <div class="body">
- 
         <h1>WELCOME BACK {{profile.username}}!</h1>
           <h2> Below are details for your profile</h2>
             <ul>
@@ -37,8 +37,26 @@ export default {
 </script>
 
 <style scoped>
-#body {
-  align-content: center;
+/* .body{
+    margin: auto;
+  width: 60%;
+  border: 3px solid ;
+  padding-right: 400px;
+  text-align: center;
+  /* padding: 40px; */
+  /* margin-top: 50px; */
+  /* margin-right: 500px; */
+ 
+ul{
+  display: block;;
 }
-
+.content{
+     margin: 0px 20px 0px 0px;
+     padding: 0px 20px 0px 0px;
+  width: 60%;
+  border: 3px solid ;
+  display: flex;
+  text-align: center;
+  display: block;
+}
 </style>
