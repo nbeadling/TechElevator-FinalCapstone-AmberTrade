@@ -1,7 +1,7 @@
 <template>
   <div class="content">
 
-    <div>
+    <div class="research">
      <h4>Get a stock quote here:</h4>
       <input type="text" id="search" v-model="searchStock" placeholder="Search for your stock" @keydown.enter="retrieveStock(searchStock)" />
         <div class="form-group">          
@@ -11,7 +11,55 @@
        </div>  
       <h4>The {{searchStock}} price is ${{stock.close}}.</h4>
     </div>
-
+<div class="leaderboard card-background text-center" id="leaderboard">
+      <div class="table-responsive">
+        <h1>Portfolio</h1>
+          <table class="table table-hover table-dark">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Game</th>
+                <th scope="col">Stock Ticker</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Position Value</th>
+              </tr>
+            </thead>
+            <tbody>
+             <tr>
+               <td>Orange Group</td>
+               <td>MSFT</td>
+               <td>87</td>
+               <td>$24,969</td>
+             </tr>
+             <tr>
+               <td>Orange Group</td>
+               <td>AMZN</td>
+               <td>3</td>
+               <td>$9,330</td>
+             </tr>
+             <tr>
+               <td>Orange Group</td>
+               <td>TSLA</td>
+               <td>10</td>
+               <td>$10,210</td>
+             </tr>
+             <tr>
+               <td>Orange Group</td>
+               <td>ADBE</td>
+               <td>60</td>
+               <td>$25,140</td>
+             </tr>
+             <tr>
+               <td>Orange Group</td>
+               <td>T</td>
+               <td>1,000</td>
+               <td>$19,420</td>
+             </tr>
+             
+            </tbody>
+          </table>
+         
+      </div>
+  </div>
 
 </div>
 </template>
@@ -106,6 +154,9 @@ tr {
 } */
 .content{
 
+}
+.reasearch{
+  background: grey;
 }
 .research-background {
   background-color: blue;
